@@ -2,14 +2,15 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src import config
-from src.forecasting.diagnostics import (
+from milan_forecasting import config
+from milan_forecasting.forecasting.diagnostics import (
     error_by_day,
     error_by_move_size,
     largest_misses,
     load_predictions,
     reaction_summary,
     under_reaction,
+    weekend_to_weekday_ratio,
 )
 
 
@@ -74,3 +75,8 @@ def test_largest_misses_and_prediction_round_trip(tmp_path):
     assert str(loaded.index.tz) == config.TIMEZONE
     assert (loaded.index == frame.index).all()
     np.testing.assert_allclose(loaded["arima"], frame["arima"])
+
+
+def test_weekend_to_weekday_ratio():
+    daily = pd.DataFrame({"arima": [10.0, 10.0, 30.0, 20.0]}, index=["Mon 16", "Tue 17", "Sat 21", "Sun 22"])
+    assert weekend_to_weekday_ratio(daily) == {"arima": pytest.approx(2.5)}

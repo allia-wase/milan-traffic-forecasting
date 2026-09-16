@@ -3,17 +3,27 @@ import pandas as pd
 import pytest
 import torch
 
-from src import config
-from src.forecasting.data import LogStandardiser, chronological_splits, sliding_windows, split_targets
-from src.forecasting.metrics import evaluate, mape, seasonal_naive_scale
-from src.forecasting.neural import (
+from milan_forecasting import config
+from milan_forecasting.forecasting.preprocessing import (
+    LogStandardiser,
+    chronological_splits,
+    sliding_windows,
+    split_targets,
+)
+from milan_forecasting.forecasting.metrics import evaluate, mape, seasonal_naive_scale
+from milan_forecasting.forecasting.models.neural import (
     LSTMForecaster,
     TCNForecaster,
     TrainConfig,
     build_model,
     train_model,
 )
-from src.forecasting.statistical import ArimaFourierConfig, ArimaFourierForecaster, fourier_terms, seasonal_naive
+from milan_forecasting.forecasting.models.statistical import (
+    ArimaFourierConfig,
+    ArimaFourierForecaster,
+    fourier_terms,
+    seasonal_naive,
+)
 
 
 def full_index():
