@@ -1,0 +1,200 @@
+[
+  {
+    "square": 5161,
+    "model_a": "arima",
+    "model_b": "lstm",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -15.954568690797581,
+    "statistic": -4.762014697050578,
+    "p_value": 2.1975347559534666e-06
+  },
+  {
+    "square": 5161,
+    "model_a": "arima",
+    "model_b": "lstm",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -7284.410319551009,
+    "statistic": -4.230102077065452,
+    "p_value": 2.5486776895465233e-05
+  },
+  {
+    "square": 5161,
+    "model_a": "arima",
+    "model_b": "tcn",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -10.193515818740977,
+    "statistic": -4.3509491612473585,
+    "p_value": 1.4935811972294104e-05
+  },
+  {
+    "square": 5161,
+    "model_a": "arima",
+    "model_b": "tcn",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -3239.628689749865,
+    "statistic": -3.805550108550065,
+    "p_value": 0.00015002196350126404
+  },
+  {
+    "square": 5161,
+    "model_a": "lstm",
+    "model_b": "tcn",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": 5.761052872056602,
+    "statistic": 1.9889782943011307,
+    "p_value": 0.04697384892866702
+  },
+  {
+    "square": 5161,
+    "model_a": "lstm",
+    "model_b": "tcn",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": 4044.781629801145,
+    "statistic": 2.6957972644751496,
+    "p_value": 0.007139105339530691
+  },
+  {
+    "square": 5059,
+    "model_a": "arima",
+    "model_b": "lstm",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -3.6550963865081862,
+    "statistic": -2.1218843680633337,
+    "p_value": 0.03409111153679556
+  },
+  {
+    "square": 5059,
+    "model_a": "arima",
+    "model_b": "lstm",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -1066.5125797407447,
+    "statistic": -2.043362876816955,
+    "p_value": 0.041276379798803754
+  },
+  {
+    "square": 5059,
+    "model_a": "arima",
+    "model_b": "tcn",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -6.18527875712719,
+    "statistic": -3.764395644403603,
+    "p_value": 0.00017660746150212697
+  },
+  {
+    "square": 5059,
+    "model_a": "arima",
+    "model_b": "tcn",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -1402.8867553497605,
+    "statistic": -2.957980847181427,
+    "p_value": 0.0031689726999317947
+  },
+  {
+    "square": 5059,
+    "model_a": "lstm",
+    "model_b": "tcn",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -2.5301823706190025,
+    "statistic": -1.4338965001437654,
+    "p_value": 0.15191223083046174
+  },
+  {
+    "square": 5059,
+    "model_a": "lstm",
+    "model_b": "tcn",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -336.3741756090157,
+    "statistic": -0.6291876291744977,
+    "p_value": 0.5293689315378267
+  },
+  {
+    "square": 5259,
+    "model_a": "arima",
+    "model_b": "lstm",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -3.8100841824978455,
+    "statistic": -2.282221821171665,
+    "p_value": 0.022684106814517394
+  },
+  {
+    "square": 5259,
+    "model_a": "arima",
+    "model_b": "lstm",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": -940.6257749233521,
+    "statistic": -1.801132146210439,
+    "p_value": 0.0719811269487059
+  },
+  {
+    "square": 5259,
+    "model_a": "arima",
+    "model_b": "tcn",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": 0.7989645390746873,
+    "statistic": 0.5271406315253265,
+    "p_value": 0.5982120393088756
+  },
+  {
+    "square": 5259,
+    "model_a": "arima",
+    "model_b": "tcn",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": 366.7243337676672,
+    "statistic": 0.7845868482705268,
+    "p_value": 0.43288037016248243
+  },
+  {
+    "square": 5259,
+    "model_a": "lstm",
+    "model_b": "tcn",
+    "loss": "absolute",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": 4.609048721572533,
+    "statistic": 3.039730350868565,
+    "p_value": 0.002429073365897545
+  },
+  {
+    "square": 5259,
+    "model_a": "lstm",
+    "model_b": "tcn",
+    "loss": "squared",
+    "n": 1008,
+    "lag": 6,
+    "mean_loss_difference": 1307.3501086910194,
+    "statistic": 3.110141608136331,
+    "p_value": 0.001922557265170247
+  }
+]
