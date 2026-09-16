@@ -23,7 +23,7 @@
     "arima": {
       "p": 2,
       "d": 1,
-      "q": 0,
+      "q": 1,
       "daily_harmonics": 16,
       "weekly_harmonics": 8
     },
@@ -64,12 +64,12 @@
     },
     "arima": {
       "measurements": 9,
-      "train_seconds_median": 18.61,
-      "train_seconds_min": 12.08,
-      "train_seconds_max": 25.45,
-      "predict_ms_per_step_median": 0.1182,
-      "predict_ms_per_step_min": 0.114,
-      "predict_ms_per_step_max": 0.1413
+      "train_seconds_median": 52.57,
+      "train_seconds_min": 31.06,
+      "train_seconds_max": 61.19,
+      "predict_ms_per_step_median": 0.1349,
+      "predict_ms_per_step_min": 0.1065,
+      "predict_ms_per_step_max": 0.2465
     },
     "lstm": {
       "measurements": 9,

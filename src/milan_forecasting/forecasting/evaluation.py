@@ -1,4 +1,6 @@
-"""Repeated-run planning, results tables and timing summaries for the final evaluation."""
+"""Tuning grids, repeated-run planning, results tables and timing summaries."""
+import itertools
+
 import pandas as pd
 
 from milan_forecasting.forecasting.figures import MODEL_LABELS
@@ -14,6 +16,12 @@ TIMING_METHOD = (
     "measurement per seed per square; ARIMA and baseline: repeated runs per square. Reported as the "
     "median with min-max over all measurements for the model across the three squares. CPU only."
 )
+
+
+def grid_combinations(base: dict, grid: dict) -> list[dict]:
+    """Every combination of the grid values, each merged over the base parameters."""
+    keys = list(grid)
+    return [{**base, **dict(zip(keys, values))} for values in itertools.product(*(grid[k] for k in keys))]
 
 
 def repeat_params(model: str, params: dict, seeds: list[int], timing_repeats: int) -> list[dict]:

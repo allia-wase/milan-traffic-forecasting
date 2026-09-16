@@ -2,7 +2,7 @@
   "arima": {
     "p": 2,
     "d": 1,
-    "q": 1,
+    "q": 0,
     "daily_harmonics": 16,
     "weekly_harmonics": 8
   },

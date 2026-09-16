@@ -1,0 +1,24 @@
+{
+  "run_id": "20260916-183914-arima",
+  "model": "arima",
+  "square": 5161,
+  "split": "val",
+  "mae": 100.2769,
+  "rmse": 153.6067,
+  "mape": 7.7757,
+  "mase": 0.2887,
+  "train_seconds": 44.2,
+  "predict_seconds": 0.109,
+  "best_epoch": "",
+  "epochs_run": "",
+  "parameters": 49,
+  "aic": -6117.3,
+  "converged": true,
+  "params": "{\"d\": 1, \"daily_harmonics\": 16, \"p\": 0, \"periods\": [144, 1008], \"q\": 2, \"weekly_harmonics\": 8}",
+  "note": "Grid search (p=0, q=2): Checks the manual choice of p=2, q=1 (read off the PACF) against every p, q up to 2, with the final Fourier terms and d=1 held fixed. AIC is on the training fit; MAE is on the validation week.",
+  "details": {
+    "aic": -6117.34985366574,
+    "converged": true,
+    "parameters": 49
+  }
+}

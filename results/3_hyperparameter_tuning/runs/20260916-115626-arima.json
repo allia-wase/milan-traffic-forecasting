@@ -14,7 +14,7 @@
   "parameters": 53,
   "aic": 246007.7,
   "params": "{\"d\": 0, \"daily_harmonics\": 16, \"p\": 2, \"periods\": [144, 1008], \"q\": 1, \"weekly_harmonics\": 8}",
-  "note": "Round 2: weekly harmonics 4 -> 8 (keeping 16 daily). Weekly seasonal strength was 0.63 in the EDA, and 4 pairs may be too coarse to shape the weekday/weekend contrast; round 1 showed extra Fourier detail is supported by AIC.",
+  "note": "Round 2: weekly harmonics 4 -> 8 (keeping 16 daily). Weekly seasonal strength was 0.63 in the EDA (default decomposition; the final robust decomposition gives 0.45), and 4 pairs may be too coarse to shape the weekday/weekend contrast; round 1 showed extra Fourier detail is supported by AIC.",
   "details": {
     "aic": 246007.74739462888,
     "converged": false,

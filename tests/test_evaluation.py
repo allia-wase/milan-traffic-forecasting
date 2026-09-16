@@ -1,7 +1,18 @@
 import pandas as pd
 
-from milan_forecasting.forecasting.evaluation import repeat_params, results_tables, timing_summary
+from milan_forecasting.forecasting.evaluation import grid_combinations, repeat_params, results_tables, timing_summary
 from milan_forecasting.forecasting.pipeline import MODELS
+
+
+def test_grid_combinations_override_base_and_cover_every_pair():
+    combos = grid_combinations({"d": 1, "p": 9}, {"p": [0, 1], "q": [0, 2]})
+
+    assert combos == [
+        {"d": 1, "p": 0, "q": 0},
+        {"d": 1, "p": 0, "q": 2},
+        {"d": 1, "p": 1, "q": 0},
+        {"d": 1, "p": 1, "q": 2},
+    ]
 
 
 def test_repeat_params_uses_seeds_only_for_networks():
