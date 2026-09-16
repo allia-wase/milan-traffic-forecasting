@@ -1,0 +1,83 @@
+{
+  "square_id": 5161,
+  "note": "All values are on the log(1 + traffic) scale; a difference of 0.05 is about 5% of traffic.",
+  "default": {
+    "fit_seconds": 42.6,
+    "residual_std": 0.19392382429346808,
+    "residual_mad": 0.09602828257655371,
+    "residual_std_max_to_min_by_hour": 1.9439835095824212,
+    "anomaly_points": 196,
+    "anomaly_share": 0.021953405017921146,
+    "anomaly_bounds": [
+      -0.5031151437159169,
+      0.4934855785200727
+    ],
+    "top_anomaly_days": {
+      "2013-12-25": 65,
+      "2013-12-18": 53,
+      "2013-12-11": 16,
+      "2013-12-16": 8,
+      "2013-12-24": 7,
+      "2013-11-15": 6,
+      "2013-11-24": 5,
+      "2014-01-01": 5,
+      "2013-12-31": 4,
+      "2013-12-26": 4
+    },
+    "days_with_anomalies": 24,
+    "share_in_holiday_regime": 0.4387755102040816,
+    "share_in_eval_week": 0.3112244897959184,
+    "busiest_anomaly_hour_count": 18,
+    "hours_with_no_anomalies": 1,
+    "christmas_mean_residual": -0.5822194598609641,
+    "christmas_min_residual": -1.2971527994387877,
+    "component_strengths": {
+      "trend": 0.668190203563382,
+      "daily_seasonality": 0.971385996593558,
+      "weekly_seasonality": 0.6330638470921631
+    }
+  },
+  "robust": {
+    "fit_seconds": 259.9,
+    "residual_std": 0.2610425694996201,
+    "residual_mad": 0.0662037578168646,
+    "residual_std_max_to_min_by_hour": 1.966681539412318,
+    "anomaly_points": 900,
+    "anomaly_share": 0.10080645161290322,
+    "anomaly_bounds": [
+      -0.34105040503961104,
+      0.34602543433537325
+    ],
+    "top_anomaly_days": {
+      "2013-12-18": 92,
+      "2013-12-25": 92,
+      "2013-12-26": 72,
+      "2013-12-11": 67,
+      "2013-12-01": 40,
+      "2013-12-16": 35,
+      "2014-01-01": 35,
+      "2013-12-04": 32,
+      "2013-11-01": 24,
+      "2013-11-06": 24
+    },
+    "days_with_anomalies": 60,
+    "share_in_holiday_regime": 0.3233333333333333,
+    "share_in_eval_week": 0.16333333333333333,
+    "busiest_anomaly_hour_count": 52,
+    "hours_with_no_anomalies": 0,
+    "christmas_mean_residual": -0.8095363183084066,
+    "christmas_min_residual": -2.275928062073332,
+    "component_strengths": {
+      "trend": 0.5027298567509775,
+      "daily_seasonality": 0.9489280980038591,
+      "weekly_seasonality": 0.45479117005156033
+    }
+  },
+  "comparison": {
+    "max_abs_trend_difference": 0.2087643184038317,
+    "max_abs_trend_difference_holiday_window": 0.19183107565087276,
+    "mean_abs_daily_seasonal_difference": 0.08444646685121952,
+    "mean_abs_daily_seasonal_difference_christmas": 0.17547574446046468,
+    "residual_correlation": 0.8087096516220514
+  }
+}

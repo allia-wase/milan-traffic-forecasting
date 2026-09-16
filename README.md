@@ -41,7 +41,12 @@ All commands run from the repository root.
 |---|---|---|
 | Build the processed dataset | `python -m scripts.build_dataset --raw-dir <dir>` | `data/processed/internet_matrix.npy`, `outputs/metrics/build_dataset.json` |
 | Memory benchmark | `python -m scripts.memory_benchmark --raw-dir <dir> --sample-days 3` | `outputs/metrics/memory_benchmark.json`, `outputs/figures/memory_benchmark.png` |
+| Exploratory analysis | `python -m scripts.run_eda` | `outputs/figures/eda_*.png`, `outputs/metrics/eda.json` |
+| Robust vs default decomposition | `python -m scripts.experiment_robust_stl` | `outputs/metrics/experiment_robust_stl.json` |
 | Unit tests | `python -m pytest` | – |
+
+`run_eda` and `experiment_robust_stl` need the processed dataset. Robust MSTL fitting is slow on
+CPU; the exploratory analysis takes about 6 minutes on the hardware below.
 
 ## Repository layout
 
@@ -50,11 +55,15 @@ src/
   config.py          paths and dataset constants
   data_loader.py     streaming raw-file reader, dense matrix builder, memory-mapped loader
   memory.py          cross-platform process-memory measurement
+  eda.py             distribution, profile, ACF/PACF, MSTL, stationarity and anomaly statistics
+  eda_plots.py       exploratory-analysis figures
   plotting.py        shared figure palette and style
 scripts/
   build_dataset.py   builds the 10,000 x 8,928 Internet-activity matrix
   memory_benchmark.py  naive vs optimised loading comparison
-tests/               unit tests for the data pipeline
+  run_eda.py         runs the exploratory analysis
+  experiment_robust_stl.py  compares default and robust MSTL on the busiest square
+tests/               unit tests for the data pipeline and analysis statistics
 outputs/
   figures/           figures used in the report
   metrics/           JSON results of every run

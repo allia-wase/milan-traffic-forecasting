@@ -1,0 +1,328 @@
+{
+  "top3_squares": [
+    5161,
+    5059,
+    5259
+  ],
+  "ranks": {
+    "5161": 1,
+    "5059": 2,
+    "5259": 3,
+    "4159": 424,
+    "4556": 109
+  },
+  "totals": {
+    "5161": 12740060.355247498,
+    "5059": 11170854.37424469,
+    "5259": 10485779.589149475,
+    "4159": 2454134.4895477295,
+    "4556": 4574671.381401062
+  },
+  "distribution": {
+    "mean": 555289.4187412086,
+    "median": 277871.10073137283,
+    "std": 892551.1013394657,
+    "min": 213.62653277278878,
+    "max": 12740060.355247498,
+    "p01": 18634.781256645918,
+    "p25": 118101.98277497292,
+    "p75": 577895.6174440384,
+    "p99": 4698732.271788674,
+    "mean_to_median": 1.9983705296436178,
+    "max_to_median": 45.848813790692596,
+    "skewness": 4.264742435585039,
+    "skewness_log10": 0.023283447434214573,
+    "gini": 0.6080800352983914,
+    "top_1pct_share": 0.11049206121426736,
+    "top_10pct_share": 0.4838853542252903,
+    "bottom_50pct_share": 0.1161835680232226
+  },
+  "temporal_profiles": {
+    "5161": {
+      "first_two_weeks": {
+        "mean": 1483.5451857097564,
+        "coefficient_of_variation": 0.8849091670857968,
+        "peak_hour": 16,
+        "trough_hour": 5,
+        "peak_to_trough_ratio": 17.342878236024816,
+        "weekend_to_weekday_ratio": 1.2618097776066017,
+        "lag1_autocorrelation": 0.9761844888264196,
+        "lag144_autocorrelation": 0.9087739440345682,
+        "max_step_change_to_mean": 2.332226159306154,
+        "zero_share": 0.0
+      },
+      "full_period": {
+        "mean": 1426.9780863852484,
+        "coefficient_of_variation": 0.9682343561481797,
+        "peak_hour": 16,
+        "trough_hour": 4,
+        "peak_to_trough_ratio": 19.683369078537403,
+        "weekend_to_weekday_ratio": 1.3842797655753254,
+        "lag1_autocorrelation": 0.9871878522988736,
+        "lag144_autocorrelation": 0.8930105934532728,
+        "max_step_change_to_mean": 2.4246783630641517,
+        "zero_share": 0.0
+      }
+    },
+    "5059": {
+      "first_two_weeks": {
+        "mean": 1330.6216388429914,
+        "coefficient_of_variation": 0.715757361708761,
+        "peak_hour": 14,
+        "trough_hour": 4,
+        "peak_to_trough_ratio": 8.98986202997711,
+        "weekend_to_weekday_ratio": 0.7723033738301918,
+        "lag1_autocorrelation": 0.9650413384756215,
+        "lag144_autocorrelation": 0.8999771716147281,
+        "max_step_change_to_mean": 1.9327585773957545,
+        "zero_share": 0.0
+      },
+      "full_period": {
+        "mean": 1251.2157677245395,
+        "coefficient_of_variation": 0.768430366166243,
+        "peak_hour": 14,
+        "trough_hour": 4,
+        "peak_to_trough_ratio": 9.093094705461825,
+        "weekend_to_weekday_ratio": 0.8610107956665287,
+        "lag1_autocorrelation": 0.9800639150475693,
+        "lag144_autocorrelation": 0.9101378721199448,
+        "max_step_change_to_mean": 2.055417180698744,
+        "zero_share": 0.0
+      }
+    },
+    "5259": {
+      "first_two_weeks": {
+        "mean": 1293.4971856465415,
+        "coefficient_of_variation": 0.878761996016504,
+        "peak_hour": 13,
+        "trough_hour": 6,
+        "peak_to_trough_ratio": 7.884791975340966,
+        "weekend_to_weekday_ratio": 0.335577726955168,
+        "lag1_autocorrelation": 0.9894328485106108,
+        "lag144_autocorrelation": 0.7123318651782181,
+        "max_step_change_to_mean": 0.8069419177650963,
+        "zero_share": 0.0
+      },
+      "full_period": {
+        "mean": 1174.4824808635165,
+        "coefficient_of_variation": 0.9389881385898111,
+        "peak_hour": 13,
+        "trough_hour": 6,
+        "peak_to_trough_ratio": 7.722814170669357,
+        "weekend_to_weekday_ratio": 0.42537824261202056,
+        "lag1_autocorrelation": 0.9916197530258244,
+        "lag144_autocorrelation": 0.7013146592538572,
+        "max_step_change_to_mean": 1.4614754352571244,
+        "zero_share": 0.0
+      }
+    },
+    "4159": {
+      "first_two_weeks": {
+        "mean": 311.34642296745665,
+        "coefficient_of_variation": 0.6078852743867461,
+        "peak_hour": 12,
+        "trough_hour": 5,
+        "peak_to_trough_ratio": 3.769052914756604,
+        "weekend_to_weekday_ratio": 0.5186856884161873,
+        "lag1_autocorrelation": 0.9706695887437873,
+        "lag144_autocorrelation": 0.7768297935235092,
+        "max_step_change_to_mean": 1.165637948724661,
+        "zero_share": 0.0
+      },
+      "full_period": {
+        "mean": 274.8806551912779,
+        "coefficient_of_variation": 0.6596636990187227,
+        "peak_hour": 12,
+        "trough_hour": 5,
+        "peak_to_trough_ratio": 3.686492302974755,
+        "weekend_to_weekday_ratio": 0.5870292921216409,
+        "lag1_autocorrelation": 0.9760292249036294,
+        "lag144_autocorrelation": 0.7860927652519225,
+        "max_step_change_to_mean": 1.9998438355239532,
+        "zero_share": 0.0
+      }
+    },
+    "4556": {
+      "first_two_weeks": {
+        "mean": 592.6982611474536,
+        "coefficient_of_variation": 0.4312500609705566,
+        "peak_hour": 22,
+        "trough_hour": 5,
+        "peak_to_trough_ratio": 4.13280317163669,
+        "weekend_to_weekday_ratio": 1.1064973351163605,
+        "lag1_autocorrelation": 0.9400934233294066,
+        "lag144_autocorrelation": 0.7873071099907044,
+        "max_step_change_to_mean": 0.7088817053185774,
+        "zero_share": 0.0
+      },
+      "full_period": {
+        "mean": 512.3959880601548,
+        "coefficient_of_variation": 0.48452216042472823,
+        "peak_hour": 22,
+        "trough_hour": 5,
+        "peak_to_trough_ratio": 3.8098910130502754,
+        "weekend_to_weekday_ratio": 1.1400687037389643,
+        "lag1_autocorrelation": 0.9586132534893652,
+        "lag144_autocorrelation": 0.8237174898551028,
+        "max_step_change_to_mean": 1.8232483869130707,
+        "zero_share": 0.0
+      }
+    }
+  },
+  "busiest_square": {
+    "square_id": 5161,
+    "acf": {
+      "lag_1": 0.9871087450543404,
+      "lag_6": 0.9388236404070861,
+      "lag_36": 0.009891430860561283,
+      "lag_72": -0.6832087579392705,
+      "lag_144": 0.8783003262611034,
+      "lag_432": 0.7413581065937128,
+      "lag_1008": 0.8376899163906857,
+      "lag_2016": 0.7046250163232479
+    },
+    "acf_min_first_day": {
+      "lag": 72,
+      "value": -0.6832087579392705
+    },
+    "white_noise_band": 0.020743354076697782,
+    "pacf_first_12": [
+      0.9871087450543407,
+      0.2597644640435994,
+      0.046264956286198373,
+      -0.1467581830633903,
+      -0.150174561219584,
+      -0.1455148327519912,
+      -0.1440602382980033,
+      -0.11580707411641375,
+      -0.10095841238740652,
+      -0.12297128039113978,
+      -0.10106369248429703,
+      -0.025895140389028005
+    ],
+    "pacf_significant_lags": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      20,
+      22,
+      23,
+      25,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      36,
+      37,
+      48
+    ],
+    "decomposition": {
+      "series": "log(1 + traffic)",
+      "periods": [
+        144,
+        1008
+      ],
+      "robust": true
+    },
+    "multiplicative_seasonality": {
+      "corr_daily_mean_vs_daily_range": 0.9187155886205982,
+      "corr_daily_mean_vs_relative_range": 0.14451230712159346,
+      "raw": {
+        "residual_std_max_to_min_by_hour": 16.984302648888377,
+        "corr_fitted_level_vs_abs_residual": 0.5527576846162031,
+        "anomaly_share": 0.12287186379928315
+      },
+      "log1p": {
+        "residual_std_max_to_min_by_hour": 1.9439835095824212,
+        "corr_fitted_level_vs_abs_residual": -0.015567628667452213,
+        "anomaly_share": 0.021953405017921146
+      }
+    },
+    "component_strengths": {
+      "trend": 0.5027298567509775,
+      "daily_seasonality": 0.9489280980038591,
+      "weekly_seasonality": 0.45479117005156033
+    },
+    "stationarity": {
+      "level": {
+        "adf_statistic": -19.031899252842667,
+        "adf_p_value": 0.0,
+        "adf_lags_used": 36,
+        "kpss_statistic": 0.2367231670024985,
+        "kpss_p_value": 0.1,
+        "kpss_p_value_is_table_bound": true,
+        "kpss_lags_used": 56
+      },
+      "first_difference": {
+        "adf_statistic": -15.160392509904675,
+        "adf_p_value": 6.603288711064727e-28,
+        "adf_lags_used": 37,
+        "kpss_statistic": 0.0033365890919549142,
+        "kpss_p_value": 0.1,
+        "kpss_p_value_is_table_bound": true,
+        "kpss_lags_used": 44
+      },
+      "daily_seasonal_difference": {
+        "adf_statistic": -11.833015860713685,
+        "adf_p_value": 7.909213347401566e-22,
+        "adf_lags_used": 30,
+        "kpss_statistic": 0.06937813430707974,
+        "kpss_p_value": 0.1,
+        "kpss_p_value_is_table_bound": true,
+        "kpss_lags_used": 55
+      }
+    },
+    "unusual_days": {
+      "threshold": 3.5,
+      "scored_on": "mean residual per day",
+      "daily_mean_residual_bounds": [
+        -0.18828019013158562,
+        0.2200446612791855
+      ],
+      "flagged": [
+        {
+          "date": "2013-12-25",
+          "mean_residual": -0.8095363183084066,
+          "z_score": -14.150326283625828,
+          "holiday": "Christmas Day"
+        },
+        {
+          "date": "2013-12-26",
+          "mean_residual": -0.4912500455775191,
+          "z_score": -8.69387683799838,
+          "holiday": "St Stephen's Day"
+        },
+        {
+          "date": "2013-12-18",
+          "mean_residual": 0.43465027406579887,
+          "z_score": 7.179029783066166,
+          "holiday": ""
+        },
+        {
+          "date": "2013-12-11",
+          "mean_residual": 0.22183060840766122,
+          "z_score": 3.5306168724635216,
+          "holiday": ""
+        }
+      ],
+      "flagged_in_eval_week": [
+        "2013-12-18"
+      ]
+    }
+  }
+}
