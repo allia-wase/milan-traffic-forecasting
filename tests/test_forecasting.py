@@ -58,6 +58,14 @@ def test_seasonal_naive_and_fourier_terms():
     assert fourier_terms(10, period=5, harmonics=0).shape == (10, 0)
 
 
+def test_arima_exog_drops_weekly_harmonics_that_repeat_daily_ones():
+    cfg = ArimaFourierConfig(daily_harmonics=16, weekly_harmonics=8)
+    exog = ArimaFourierForecaster(cfg)._exog(2016)
+
+    assert exog.shape == (2016, 2 * 16 + 2 * 7)
+    assert np.linalg.matrix_rank(exog) == exog.shape[1]
+
+
 def test_metrics_on_known_values():
     actual, predicted = np.array([100.0, 200.0]), np.array([110.0, 180.0])
     result = evaluate(actual, predicted, mase_scale=5.0)

@@ -53,10 +53,25 @@ class ArimaFourierForecaster:
 
     def _exog(self, n_obs: int) -> np.ndarray:
         daily_period, weekly_period = self.cfg.periods
-        return np.hstack([
-            fourier_terms(n_obs, daily_period, self.cfg.daily_harmonics),
-            fourier_terms(n_obs, weekly_period, self.cfg.weekly_harmonics),
-        ])
+        daily = fourier_terms(n_obs, daily_period, self.cfg.daily_harmonics)
+        weekly = fourier_terms(n_obs, weekly_period, self.cfg.weekly_harmonics)
+        return np.hstack([daily, weekly[:, self._distinct_weekly_columns()]])
+
+    def _distinct_weekly_columns(self) -> list[int]:
+        """Drop weekly harmonics that repeat a daily one.
+
+        With a weekly period of 7 days, weekly harmonic 7k has the same frequency as daily harmonic k;
+        keeping both makes the regressors perfectly collinear and the fit fails.
+        """
+        daily_period, weekly_period = self.cfg.periods
+        k_weekly = self.cfg.weekly_harmonics
+        keep = []
+        for k in range(1, k_weekly + 1):
+            daily_equivalent, remainder = divmod(k * daily_period, weekly_period)
+            if remainder == 0 and daily_equivalent <= self.cfg.daily_harmonics:
+                continue
+            keep.append(k)
+        return [k - 1 for k in keep] + [k_weekly + k - 1 for k in keep]
 
     def fit(self, scaled: np.ndarray, train: slice) -> ArimaFourierForecaster:
         if train.start != 0:

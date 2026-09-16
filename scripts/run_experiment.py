@@ -19,7 +19,7 @@ from src.forecasting.pipeline import MODELS, run
 
 LOG_FIELDS = [
     "run_id", "model", "square", "split", "mae", "rmse", "mape", "mase",
-    "train_seconds", "predict_seconds", "best_epoch", "epochs_run", "parameters", "aic",
+    "train_seconds", "predict_seconds", "best_epoch", "epochs_run", "parameters", "aic", "converged",
     "params", "note",
 ]
 
@@ -49,6 +49,7 @@ def main() -> None:
         "epochs_run": result.details.get("epochs_run", ""),
         "parameters": result.details.get("parameters", ""),
         "aic": round(result.details["aic"], 1) if "aic" in result.details else "",
+        "converged": result.details.get("converged", ""),
         "params": json.dumps(result.params, sort_keys=True),
         "note": args.note,
     }
