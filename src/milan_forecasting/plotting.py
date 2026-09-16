@@ -1,4 +1,4 @@
-"""Shared figure styling so every report figure uses the same palette and chrome."""
+"""Common plot style (colours, fonts, axes) used by all the figures."""
 from pathlib import Path
 
 import matplotlib

@@ -19,8 +19,8 @@ from milan_forecasting.analysis.statistics import area_totals, component_strengt
 THRESHOLD = 3.5
 CHRISTMAS = "2013-12-25"
 HOLIDAY_WINDOW = ("2013-12-23", "2013-12-28")
-# If anomalies concentrate in this festive stretch they mark a regime change; if they are spread
-# evenly over all days and hours they mark systematic misfit instead.
+# Anomalies bunched up in this stretch would point to a holiday regime change; anomalies spread
+# over every day and hour would mean the decomposition just fits badly.
 HOLIDAY_REGIME = ("2013-12-23", "2014-01-01")
 
 

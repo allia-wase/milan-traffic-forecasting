@@ -1,0 +1,38 @@
+@page { size: A4; margin: 20mm 18mm 20mm 18mm; }
+
+body {
+  font-family: "Cambria", "Georgia", "Times New Roman", serif;
+  font-size: 10.5pt;
+  line-height: 1.42;
+  color: #111;
+  background: #fff;
+  text-align: justify;
+  hyphens: auto;
+}
+
+h1 { font-size: 17pt; text-align: center; margin: 0 0 4pt; line-height: 1.2; }
+.byline { text-align: center; font-size: 10pt; margin-bottom: 14pt; }
+h2 { font-size: 12.5pt; margin: 16pt 0 5pt; border-bottom: 0.6pt solid #999; padding-bottom: 2pt;
+     break-after: avoid; }
+h3 { font-size: 11pt; margin: 11pt 0 3pt; break-after: avoid; }
+p { margin: 0 0 6pt; }
+
+.abstract { margin: 0 8% 12pt; font-size: 9.8pt; }
+
+figure { margin: 8pt 0 10pt; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; max-height: 190mm; }
+figure.half img { max-width: 72%; }
+figcaption { font-size: 9pt; text-align: left; margin-top: 3pt; color: #222; }
+
+table { border-collapse: collapse; margin: 6pt auto 4pt; font-size: 9pt; break-inside: avoid; }
+th, td { padding: 2.5pt 7pt; text-align: right; }
+th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+thead th { border-top: 1pt solid #000; border-bottom: 0.6pt solid #000; }
+tbody tr:last-child td { border-bottom: 1pt solid #000; }
+.table-caption { font-size: 9pt; text-align: center; margin: 8pt 0 0; break-after: avoid; }
+table.log { font-size: 8pt; }
+table.log td:last-child { text-align: left; }
+
+code { font-family: "Consolas", monospace; font-size: 9pt; }
+.references p, .references li { font-size: 9pt; text-align: left; }
+.pagebreak { break-before: page; }

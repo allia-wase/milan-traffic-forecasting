@@ -1,82 +1,89 @@
 # Milan Mobile Internet Traffic Forecasting
 
-This project predicts how much mobile Internet traffic each part of Milan will carry in the next ten
-minutes, and compares how well three different kinds of sequential model do the job. It uses the
-Telecom Italia *Big Data Challenge* data: the city split into 10,000 squares, with activity recorded
-every ten minutes from 1 November 2013 to 1 January 2014.
+[![tests](https://github.com/allia-wase/milan-traffic-forecasting/actions/workflows/tests.yml/badge.svg)](https://github.com/allia-wase/milan-traffic-forecasting/actions/workflows/tests.yml)
+
+In this project I try to predict how much mobile Internet traffic a part of Milan will carry in the
+next ten minutes, and I compare three kinds of sequential model on that task. The data is the
+Telecom Italia *Big Data Challenge* set: Milan is split into 10,000 squares, and activity is
+recorded every ten minutes from 1 November 2013 to 1 January 2014.
 
 | Deliverable | Where |
 |---|---|
-| Report | `reports/report/report.pdf` (built with `make report`) |
+| Report | `reports/report/report.pdf`, built from `report.md` with `python scripts/09_build_report.py` |
 | Video | link added on submission |
-| Dataset | [Harvard Dataverse - Milan telecommunications activity](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/EGZHFV) |
+| Dataset | [Harvard Dataverse: Milan telecommunications activity](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/EGZHFV) |
 
-## The question
+## Research question
 
 How do different sequential models compare for one-step-ahead mobile network traffic forecasting,
 and how does their performance change between areas whose traffic behaves differently?
 
-## What came out of it
+## Main findings
 
-A statistical model, ARIMA with Fourier terms for the daily and weekly cycles, was the most accurate
-in all three areas tested, and it trained roughly four times faster than the two neural networks.
-On the validation week it was practically tied with the TCN, but on the unseen test week it pulled
-clearly ahead, and the TCN's results changed a lot depending on the random seed. The traffic turned
-out to be mostly regular daily and weekly rhythm plus short-term memory, which is exactly what the
-ARIMA model is built to describe.
+- ARIMA with Fourier terms for the daily and weekly cycles had the lowest average error in all
+  three squares I tested. It also trained about ten times faster than the LSTM and the TCN.
+- Diebold-Mariano tests say ARIMA's lead is significant in five of the six comparisons with the
+  networks. The one exception is square 5259, where ARIMA and the TCN come out level.
+- The TCN was the least stable model. Changing only the random seed moved its error a lot.
+- The traffic is mostly a regular daily and weekly rhythm with short-term memory on top, which is
+  the structure ARIMA-Fourier assumes. I think that is the main reason it did so well.
+- Every model failed in the same way: when traffic jumped or dropped sharply within ten minutes,
+  the forecast did not move far enough.
 
-All the models struggled in the same situation: when traffic jumped or dropped sharply within ten
-minutes. Almost every one of the largest errors was a forecast that fell short of a sudden move.
-
-## Repository structure
+## Repository layout
 
 ```
 milan-traffic-forecasting/
 ├── configs/
-│   └── final_models.json        settings chosen by the tuning experiments
+│   └── final_models.json        settings picked during tuning
 ├── notebooks/
-│   └── milan-forecasting.ipynb  walkthrough of every section using the saved results
+│   └── milan-forecasting.ipynb  walkthrough of the results (no training needed)
 ├── reports/
-│   └── report/report.pdf        the written report (built with make report)
-├── scripts/                     the pipeline, run in numbered order
+│   ├── report/                  report.md, style.css and the built report.pdf
+│   └── video_plan.md            outline for the video
+├── scripts/                     the pipeline, run in order
 │   ├── 01_build_dataset.py
 │   ├── 02_memory_benchmark.py
 │   ├── 03_exploratory_analysis.py
+│   ├── 03b_locate_squares.py    optional: finds the studied squares on a map
 │   ├── 04_decomposition_experiment.py
 │   ├── 05_tuning_experiment.py
 │   ├── 06_evaluate_models.py
-│   └── 07_failure_analysis.py
-├── src/milan_forecasting/       the installable package
-│   ├── config.py                paths, dataset constants, study design
-│   ├── plotting.py              shared figure style
-│   ├── system_info.py           hardware description for timing reports
-│   ├── data/                    streaming loader and memory measurement
-│   ├── analysis/                exploratory statistics and figures
+│   ├── 07_failure_analysis.py
+│   ├── 08_significance_tests.py
+│   └── 09_build_report.py
+├── src/milan_forecasting/       the package the scripts import
+│   ├── config.py                paths, dataset constants, split dates
+│   ├── plotting.py              shared plot style
+│   ├── system_info.py           hardware details saved with the timings
+│   ├── data/                    streaming loader, memory measurement
+│   ├── analysis/                EDA statistics and figures
 │   └── forecasting/
-│       ├── preprocessing.py     splits, log-standardisation, sliding windows
+│       ├── preprocessing.py     splits, log + standardisation, sliding windows
 │       ├── metrics.py           MAE, RMSE, MAPE, MASE
-│       ├── models/              baseline and ARIMA-Fourier (statistical.py), LSTM and TCN (neural.py)
-│       ├── pipeline.py          fits and scores any model on identical data
-│       ├── evaluation.py        repeated runs, results tables, timing summaries
+│       ├── significance.py      Diebold-Mariano test
+│       ├── models/              naive and ARIMA-Fourier (statistical.py), LSTM and TCN (neural.py)
+│       ├── pipeline.py          fits and scores any model the same way
+│       ├── evaluation.py        tuning grids, repeated runs, result tables, timing
 │       ├── diagnostics.py       failure-analysis statistics
-│       └── figures.py           forecast and failure-analysis figures
-├── tests/                       27 unit tests
-├── results/                     every output, grouped by report section
+│       └── figures.py           forecast and failure plots
+├── tests/                       33 unit tests (also run on GitHub Actions)
+├── results/                     all outputs, one folder per report section
 │   ├── 1_data_handling/
 │   ├── 2_exploratory_analysis/
 │   ├── 3_hyperparameter_tuning/
 │   └── 4_model_evaluation/
-│       ├── forecasts/           9 forecast plots and the test-week predictions
+│       ├── forecasts/           the 9 forecast plots and test-week predictions
+│       ├── first_run_arima_211/ test results from before the ARIMA grid search
 │       └── failure_analysis/
 ├── pyproject.toml
 └── requirements.txt
 ```
 
-## Getting started
+## Setup
 
-You need Python 3.11 or newer; the project was developed with Python 3.14 on a Windows laptop
-without a GPU. Create a virtual environment and install the project together with its development
-tools:
+I developed and tested this only with Python 3.14 on Windows 10, on a laptop with no GPU. The
+pinned packages should also work on Python 3.11 to 3.13, but I haven't tried them.
 
 ```bash
 python -m venv .venv
@@ -85,155 +92,215 @@ pip install -e ".[dev]"
 python -m pytest
 ```
 
-Install it in editable mode (`-e`) as shown, because the code finds the `data`, `configs` and
-`results` folders relative to the repository. The tests take about fifteen seconds.
+Use the editable install (`-e`). The code finds `data/`, `configs/` and `results/` relative to
+the repository, so it needs to run from the checkout. The tests take about 15 seconds.
 
-Next, download the *Telecommunications - SMS, Call, Internet - MI* files from the dataset link above
-and unzip the 62 daily files somewhere on your machine. Together they are about 20.8 GB, so there is
-no need to copy them into the repository. Point the scripts at that folder with `--raw-dir`, or set
-the `MILAN_RAW_DIR` environment variable once.
+For the raw data, open the dataset link above (*Telecommunications - SMS, Call, Internet - MI*)
+and download the 62 daily files, `sms-call-internet-mi-2013-11-01.txt` to
+`sms-call-internet-mi-2014-01-01.txt`. They come zipped, so unzip them into one folder. They take
+about 20.8 GB, so keep them outside the repository. Then either pass that folder to the scripts
+with `--raw-dir` or set `MILAN_RAW_DIR` once.
 
-If you only want to see the results, open `notebooks/milan-forecasting.ipynb`. It reads the saved
-outputs, so it runs in a few seconds and needs neither the raw data nor any training.
+The optional step 3b also needs `milano-grid.geojson` from the
+[Milano Grid dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QJWLFU).
+Dataverse asks you to fill in a short guestbook form before either download.
+
+If you just want to look at the results, open `notebooks/milan-forecasting.ipynb`. It only reads
+the saved outputs, so it runs in seconds without the raw data.
 
 ## Running the pipeline
 
-The scripts are numbered in the order they are meant to run. Each one writes its outputs into the
-matching folder under `results/`, and the times below are what they took on the development laptop.
+Run the scripts in number order. Each one writes to its own folder under `results/`. The times
+are what each step took on my laptop.
 
 | Step | Command | Time |
 |---|---|---|
 | 1 | `python scripts/01_build_dataset.py --raw-dir <dir>` | 1.5 min |
 | 2 | `python scripts/02_memory_benchmark.py --raw-dir <dir>` | 2 min |
 | 3 | `python scripts/03_exploratory_analysis.py` | 6 min |
+| 3b | `python scripts/03b_locate_squares.py --grid-file <geojson>` | 1 s |
 | 4 | `python scripts/04_decomposition_experiment.py` | 5 min |
-| 5 | `python scripts/05_tuning_experiment.py --model <m> --params '<json>' --note "<why>"` | up to an hour per run |
-| 6 | `python scripts/06_evaluate_models.py` | 70 min |
-| 7 | `python scripts/07_failure_analysis.py` | a few seconds |
+| 5 | `python scripts/05_tuning_experiment.py --model <m> --params '<json>' --note "<why>"` | up to 1 h per run |
+| 5 (grid) | same, plus `--grid '{"p": [0, 1, 2], "q": [0, 1, 2]}'` | ~15 min for ARIMA |
+| 6 | `python scripts/06_evaluate_models.py` (add `--models arima` to re-run one model) | 70 min |
+| 7 | `python scripts/07_failure_analysis.py` | seconds |
+| 8 | `python scripts/08_significance_tests.py` | seconds |
+| 9 | `python scripts/09_build_report.py` | seconds |
 
-Only the first two steps read the raw files. Everything after that works from the processed matrix
-that step 1 saves in `data/processed/`. Step 5 runs one tuning experiment at a time and only ever
-looks at the validation week, and step 7 reuses the predictions saved by step 6.
+Notes on the steps:
 
-## How the study was done
+- **Raw files:** only steps 1 and 2 read them. Everything after step 1 uses the matrix it saves
+  in `data/processed/`.
+- **Step 5:** only ever looks at the validation week.
+- **Steps 7 and 8:** reuse the predictions saved by step 6.
+- **Step 9:** needs `pip install -e ".[report]"` and Chrome or Edge, which prints the HTML to PDF,
+  so LaTeX isn't needed.
+
+## How I did it
 
 ### Handling the data
 
-Each daily file has about 4.8 million rows, one for every combination of square, ten-minute interval
-and caller country, spread over eight columns. Altogether the files are larger than the laptop's
-memory, so loading them the usual way was not possible.
+Each daily file has about 4.8 million rows, one per square, ten-minute interval and caller
+country, with eight columns. All 62 files together are bigger than my laptop's memory, so
+`pd.read_csv` on everything was never going to work.
 
-Forecasting only needs the Internet activity per square and interval. The loader therefore reads
-just those three columns with compact number types, adds up the rows for each square one day at a
-time, and writes the totals into a fixed 10,000 × 8,928 grid of 32-bit numbers. That grid takes
-357 MB, and later steps open it memory-mapped so that only the rows they need are loaded. Reading a
-single square this way peaks at 121 MB of process memory, compared with 478 MB when the whole grid
-is loaded.
+For forecasting I only need Internet activity per square and interval. So the loader:
 
-The memory benchmark tried four strategies on three days of data and scaled the results up to the
-full two months:
+- reads just three columns (`square_id`, `time_interval`, `internet`) with small number types;
+- sums over country codes one day at a time;
+- writes the totals into a fixed 10,000 × 8,928 `float32` matrix, which takes 357 MB.
+
+Later steps memory-map the matrix, so only the rows they touch get loaded. Reading one square this
+way peaks at 121 MB of process memory, against 478 MB when I load the whole matrix.
+
+I benchmarked four loading strategies on three days of data and scaled the results up to two
+months:
 
 | Strategy | Data in memory | Peak process memory |
 |---|---|---|
 | pandas, all 8 columns, default types | 18.9 GB | 38.0 GB |
 | pandas, 3 columns, compact types | 4.1 GB | 8.4 GB |
 | pyarrow, 3 columns, compact types | 4.2 GB | 7.0 GB |
-| Streaming into a 32-bit grid (used) | 0.36 GB | 0.98 GB |
+| Streaming into a `float32` matrix (used) | 0.36 GB | 0.98 GB |
 
-Building the full grid really did peak at 0.96 GB, which matches the estimate.
+The real build of the full matrix peaked at 0.96 GB, close to the estimate.
 
 ### Exploring the traffic
 
-Traffic is very unevenly spread. The busiest tenth of the city carries almost half of all traffic,
-and the busiest squares sit together in the centre. The three busiest squares also behave
-differently: 5161 gets busier at weekends, 5259 empties out like an office district, and 5059 sits in
-between. Square 4556 peaks late in the evening.
-
-For the busiest square, the value ten minutes ago is an excellent guide to the value now, and the
-same time yesterday and the same time last week are strong guides too. Busy days swing much harder
-than quiet ones, so the analysis and all the models work on the logarithm of traffic, which turns
-those proportional swings into steady ones. A decomposition of the series shows a strong daily
-cycle, a weaker weekly one, a drop in traffic from mid-December into Christmas, and four unusual
-days: Christmas Day and Boxing Day far below normal, and 11 and 18 December above it. A side
-experiment (`scripts/04_decomposition_experiment.py`) showed that a robust decomposition was needed,
-because the standard one quietly absorbed part of the Christmas dip.
+- **Spread across the city:** traffic is very uneven. The busiest 10% of squares carry almost
+  half of all traffic, and the busiest squares are close together in the centre.
+- **The three busiest squares differ:** 5161 gets busier at weekends, 5259 empties out at weekends
+  like an office area, and 5059 is somewhere in between. Square 4556 peaks late in the evening.
+- **Memory:** for the busiest square, the value ten minutes ago is a very good guide to the value
+  now. The same time yesterday and the same time last week are also strong guides.
+- **Log scale:** busy days swing much more than quiet ones, so the analysis and all the models
+  use log traffic, which turns those proportional swings into roughly constant ones.
+- **Decomposition:** a strong daily cycle, a weaker weekly one, and a drop from mid-December into
+  Christmas. Four days stand out: Christmas Day and Boxing Day are far below normal, and 11 and
+  18 December are above it.
+- **Robust fitting:** `scripts/04_decomposition_experiment.py` shows why I used a robust
+  decomposition. The default one absorbed part of the Christmas dip into the seasonal pattern.
 
 ### Choosing and tuning the models
 
-The three models come from different families, so the comparison is not just between versions of
-one architecture: ARIMA with Fourier seasonal terms, a recurrent LSTM network and a convolutional
-TCN. A same-time-yesterday forecast serves as the baseline that every model has to beat.
+I picked three models from different families, so the comparison isn't just versions of one
+architecture:
 
-The data is split in time. The models learn from 1 November to 8 December, are tuned on 9 to 15
-December, and are finally tested on 16 to 22 December. Tuning used the validation week of the
-busiest square only, and changed one setting at a time with the reason written down before each run.
-The fifteen runs are in `results/3_hyperparameter_tuning/experiment_log.csv`. Tuning a model stopped
-once a change improved its validation error by less than one percent.
+- ARIMA with Fourier seasonal terms (statistical);
+- an LSTM (recurrent network);
+- a TCN (convolutional network).
 
-A few things stood out. Smaller networks did better than bigger ones, and giving the networks a
-week of history instead of a day did not help, even though it cost far more time. One ARIMA run
-failed outright: a week is exactly seven days, so one of the weekly Fourier waves was identical to
-one of the daily waves, and the model could not tell them apart. Removing the duplicate waves fixed
-it, and both the failed run and the fixed one are kept in the log.
+As a baseline, every model has to beat "same time yesterday".
 
-The final settings are in `configs/final_models.json`:
+The data is split by date:
 
-| Model | Final settings |
+- **Training:** 1 November to 8 December.
+- **Validation (tuning):** 9 to 15 December.
+- **Test:** 16 to 22 December.
+
+I tuned on the validation week of the busiest square only, changing one setting per run and
+writing down the reason before running it. I stopped tuning a model once a change gained less than
+1% on validation error. The 15 manual runs are in `results/3_hyperparameter_tuning/experiment_log.csv`,
+followed by 9 grid-search runs over the ARIMA orders p and q (0 to 2 each).
+
+What I noticed during tuning:
+
+- **Smaller networks worked better than bigger ones.**
+- **A week of input history didn't help the networks** compared with a day, and it made them far
+  slower.
+- **One ARIMA run failed completely.** A week is exactly 7 days, so the 7th weekly Fourier wave is
+  the same as the 1st daily wave. The two columns were identical and the optimiser couldn't
+  start. Dropping the duplicate waves fixed it. Both the failed run and the fixed one are in the
+  log.
+- **The grid search disagreed with my manual choice.** AIC ranked my hand-picked ARIMA(2,1,1)
+  near the top, but ARIMA(2,1,0) had a 3.5% lower validation error. My own rule says to keep
+  changes worth more than 1%, so the final model uses (2,1,0).
+
+**Timing caveat:** I made that switch *after* I had already run the test week once with (2,1,1).
+The choice itself used only validation data, but I had seen the test results, so I report both
+(see below).
+
+Final settings (from `configs/final_models.json`):
+
+| Model | Settings |
 |---|---|
-| Seasonal naive | the value at the same time on the previous day |
-| ARIMA-Fourier | ARIMA(2,1,1) errors around 16 daily and 8 weekly Fourier pairs |
-| LSTM | one layer of 64 units, one day of input history |
-| TCN | six dilated convolution levels, 16 channels, one day of input history |
+| Seasonal naive | value at the same time on the previous day |
+| ARIMA-Fourier | ARIMA(2,1,0) errors around 16 daily and 8 weekly Fourier pairs |
+| LSTM | one layer of 64 units, one day of input |
+| TCN | six dilated convolution levels, 16 channels, one day of input |
 
-### Testing the models
+### Test results
 
-The test week was used only once, after tuning had finished. Each network was trained with three
-different random seeds, so its results are shown as a mean and a spread. The full tables are in
+I used the test week only after tuning was finished. I trained each network with three random
+seeds and report the mean ± standard deviation. The full tables are in
 `results/4_model_evaluation/results_tables.md`.
 
 | Square | Model | MAE | MAPE (%) | RMSE |
 |---|---|---|---|---|
 | 5161 | Seasonal naive | 338.59 | 25.94 | 619.04 |
-| | ARIMA-Fourier | 83.79 | 7.74 | 131.54 |
+| | ARIMA-Fourier | 76.86 | 7.33 | 117.12 |
 | | LSTM | 92.53 ± 1.94 | 8.48 ± 0.04 | 144.31 ± 3.12 |
 | | TCN | 87.74 ± 0.69 | 8.60 ± 0.63 | 132.10 ± 3.52 |
 | 5059 | Seasonal naive | 171.74 | 18.02 | 245.87 |
-| | ARIMA-Fourier | 66.56 | 6.43 | 97.25 |
+| | ARIMA-Fourier | 63.86 | 6.11 | 93.33 |
 | | LSTM | 69.58 ± 2.41 | 6.72 ± 0.24 | 102.17 ± 3.76 |
 | | TCN | 73.31 ± 4.75 | 7.50 ± 0.99 | 104.32 ± 4.68 |
 | 5259 | Seasonal naive | 470.32 | 71.62 | 861.62 |
-| | ARIMA-Fourier | 62.91 | 6.79 | 92.23 |
+| | ARIMA-Fourier | 63.20 | 6.83 | 92.70 |
 | | LSTM | 66.63 ± 0.33 | 7.24 ± 0.11 | 96.00 ± 1.44 |
 | | TCN | 68.86 ± 9.80 | 7.24 ± 0.39 | 103.54 ± 20.31 |
 
-Timings were measured on an Intel Core i5-7200U with 2 cores, 4 threads and 17 GB of memory, with no
-GPU. The figures are medians over nine runs across the three squares, and
-`results/4_model_evaluation/timing.json` records exactly how they were taken.
+**Timing.** All timings come from the same laptop: Intel Core i5-7200U (2 cores, 4 threads),
+15.8 GiB RAM (saved as 17.0 GB in the result files), no GPU. The numbers are medians over nine runs
+across the three squares, and `results/4_model_evaluation/timing.json` describes how I measured
+them.
 
 | Model | Training time | Time per forecast |
 |---|---|---|
-| ARIMA-Fourier | 53 s (31 to 61 s) | 0.13 ms |
+| ARIMA-Fourier | 19 s (12 to 25 s) | 0.12 ms |
 | LSTM | 190 s (112 to 282 s) | 0.19 ms |
 | TCN | 222 s (129 to 497 s) | 0.14 ms |
 
-Every model makes a forecast in well under a millisecond, so the real difference between them is how
-long they take to train.
+All three models predict in well under a millisecond, so in practice what matters is training
+time.
+
+**Significance.** To check whether the gaps in the error table are more than chance, I ran
+Diebold-Mariano tests (`results/4_model_evaluation/significance.md`). They compare ARIMA with the
+seed-42 networks over the 1,008 forecasts in each square. Using absolute errors:
+
+- ARIMA is significantly better than both networks in 5161 and 5059.
+- In 5259, ARIMA is significantly better than the LSTM but level with the TCN.
+
+**First run with ARIMA(2,1,1).** Before the grid search, the test week was run with ARIMA(2,1,1):
+
+- MAE was 83.79 / 66.56 / 62.91 on squares 5161 / 5059 / 5259, and training took a median of 53 s.
+- With that model, ARIMA's lead over the TCN wasn't significant in any square.
+- The (2,1,0) model is clearly better in 5161 and 5059, and about the same in 5259.
+
+The full first-run results are in `results/4_model_evaluation/first_run_arima_211/`.
 
 ### Where the models struggle
 
-The worst stretch for the busiest square was the last weekend before Christmas, when its afternoon
-peaks were about half as high again as on weekdays. Looking across all three squares and all three models, 94
-to 100 percent of the largest errors happened when traffic moved sharply within ten minutes and the
-forecast did not move far enough. The bigger the sudden change, the bigger the error. The figures
-for this are in `results/4_model_evaluation/failure_analysis/`.
+- **Worst period:** for the busiest square it was the last weekend before Christmas, when the
+  afternoon peaks were about 50% higher than on weekdays.
+- **Common failure:** across all squares and models, 94 to 100% of the largest errors came from
+  sharp ten-minute moves that the forecast didn't follow far enough. The bigger the jump, the
+  bigger the error.
 
-## Reproducing the results
+The plots are in `results/4_model_evaluation/failure_analysis/`.
 
-The neural networks use fixed random seeds, so running them again with the same seed and data gives
-the same numbers. ARIMA and the baseline have no randomness at all. Timings are the exception: on a
-laptop the same run can take noticeably longer from one attempt to the next (one identical TCN run
-took 300 seconds once and 493 the next time), which is why the timing table reports medians over
-repeated runs.
+## Reproducibility
+
+The networks use fixed seeds, so rerunning with the same seed and data gives the same numbers.
+ARIMA and the baseline have no randomness.
+
+Timings are the exception, because a laptop isn't a stable benchmark machine. One identical TCN
+run took 300 s once and 493 s the next time, which is why I report medians over repeated runs.
+
+## Use of AI
+
+I used an AI coding assistant while building this project. The report's AI declaration explains
+where and how.
 
 ## References
 
@@ -249,3 +316,10 @@ repeated runs.
    in *Proc. AAAI Conf. Artificial Intelligence*, 2023, arXiv:2205.13504.
 6. K. Bandara, R. J. Hyndman and C. Bergmeir, "MSTL: A seasonal-trend decomposition algorithm for
    time series with multiple seasonal patterns," 2021, arXiv:2107.13462.
+7. F. X. Diebold and R. S. Mariano, "Comparing predictive accuracy," *J. Business & Economic
+   Statistics*, vol. 13, no. 3, pp. 253–263, 1995.
+
+## License
+
+The code is under the MIT License (see `LICENSE`). The Telecom Italia data isn't included here and
+stays under the terms of its Dataverse record.
