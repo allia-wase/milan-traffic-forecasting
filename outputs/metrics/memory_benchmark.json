@@ -1,0 +1,82 @@
+{
+  "system": {
+    "cpu": "Intel64 Family 6 Model 142 Stepping 9, GenuineIntel",
+    "physical_cores": 2,
+    "logical_cores": 4,
+    "total_ram_gb": 17.0,
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.14.2",
+    "pandas": "3.0.5",
+    "pyarrow": "25.0.1"
+  },
+  "sample_files": [
+    "sms-call-internet-mi-2013-11-01.txt",
+    "sms-call-internet-mi-2013-11-02.txt",
+    "sms-call-internet-mi-2013-11-03.txt"
+  ],
+  "total_files": 62,
+  "loading_strategies": [
+    {
+      "strategy": "naive_pandas",
+      "label": "pandas, all 8 columns,\ndefault 64-bit types",
+      "data_mb": 915.858692,
+      "baseline_rss_mb": 120.225792,
+      "peak_rss_mb": 1954.05824,
+      "final_rss_mb": 122.32704,
+      "seconds": 25.830748999998832,
+      "projected_data_mb": 18927.746301333336,
+      "projected_peak_rss_mb": 38019.42971733333
+    },
+    {
+      "strategy": "pandas_selected_columns",
+      "label": "pandas, 3 columns,\ndowncast types",
+      "data_mb": 200.344192,
+      "baseline_rss_mb": 119.816192,
+      "peak_rss_mb": 521.740288,
+      "final_rss_mb": 121.925632,
+      "seconds": 19.063214400001016,
+      "projected_data_mb": 4140.446634666667,
+      "projected_peak_rss_mb": 8426.247509333334
+    },
+    {
+      "strategy": "pyarrow_selected_columns",
+      "label": "pyarrow, 3 columns,\ndowncast types",
+      "data_mb": 202.133236,
+      "baseline_rss_mb": 119.443456,
+      "peak_rss_mb": 453.689344,
+      "final_rss_mb": 429.559808,
+      "seconds": 2.149732200001381,
+      "projected_data_mb": 4177.420210666667,
+      "projected_peak_rss_mb": 7027.191808000001
+    },
+    {
+      "strategy": "streaming_dense_matrix",
+      "label": "Streaming aggregate\ninto float32 matrix",
+      "data_mb": 17.28,
+      "baseline_rss_mb": 120.659968,
+      "peak_rss_mb": 638.742528,
+      "final_rss_mb": 575.373312,
+      "seconds": 3.864724799999749,
+      "projected_data_mb": 357.12,
+      "projected_peak_rss_mb": 978.582528
+    }
+  ],
+  "series_access": [
+    {
+      "strategy": "load_series_in_memory",
+      "data_mb": 357.155712,
+      "baseline_rss_mb": 120.393728,
+      "peak_rss_mb": 477.745152,
+      "final_rss_mb": 120.619008,
+      "seconds": 0.264945799999623
+    },
+    {
+      "strategy": "load_series_memory_mapped",
+      "data_mb": 0.035712,
+      "baseline_rss_mb": 119.427072,
+      "peak_rss_mb": 120.963072,
+      "final_rss_mb": 119.701504,
+      "seconds": 0.021944100000837352
+    }
+  ]
+}

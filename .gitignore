@@ -1,0 +1,19 @@
+# Raw and processed data are large and reproducible from the Dataverse download
+data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Trained model weights
+outputs/models/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
