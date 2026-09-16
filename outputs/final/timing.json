@@ -1,0 +1,93 @@
+{
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz",
+    "physical_cores": 2,
+    "logical_cores": 4,
+    "ram_gb": 17.0,
+    "gpu_used": false,
+    "cuda_available": false,
+    "torch_threads": 2,
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.14.2",
+    "torch": "2.14.0+cpu",
+    "statsmodels": "0.15.0"
+  },
+  "method": "Wall-clock time from time.perf_counter. Training time covers fitting on the training split (for the networks: all epochs including early stopping on the validation split). Prediction time covers producing all 1,008 one-step-ahead forecasts of the test week. Networks: one measurement per seed per square; ARIMA and baseline: repeated runs per square. Reported as the median with min-max over all measurements for the model across the three squares. CPU only.",
+  "seeds": [
+    42,
+    7,
+    123
+  ],
+  "timing_repeats": 3,
+  "configs": {
+    "arima": {
+      "p": 2,
+      "d": 1,
+      "q": 1,
+      "daily_harmonics": 16,
+      "weekly_harmonics": 8
+    },
+    "lstm": {
+      "lookback": 144,
+      "batch_size": 128,
+      "learning_rate": 0.0005,
+      "max_epochs": 80,
+      "patience": 10,
+      "model": {
+        "hidden_size": 64,
+        "num_layers": 1
+      }
+    },
+    "tcn": {
+      "lookback": 144,
+      "batch_size": 128,
+      "learning_rate": 0.001,
+      "max_epochs": 80,
+      "patience": 6,
+      "model": {
+        "channels": 16,
+        "levels": 6,
+        "kernel_size": 3,
+        "dropout": 0.1
+      }
+    }
+  },
+  "by_model": {
+    "naive": {
+      "measurements": 3,
+      "train_seconds_median": 0.0,
+      "train_seconds_min": 0.0,
+      "train_seconds_max": 0.0,
+      "predict_ms_per_step_median": 0.0,
+      "predict_ms_per_step_min": 0.0,
+      "predict_ms_per_step_max": 0.0
+    },
+    "arima": {
+      "measurements": 9,
+      "train_seconds_median": 52.57,
+      "train_seconds_min": 31.06,
+      "train_seconds_max": 61.19,
+      "predict_ms_per_step_median": 0.1349,
+      "predict_ms_per_step_min": 0.1065,
+      "predict_ms_per_step_max": 0.2465
+    },
+    "lstm": {
+      "measurements": 9,
+      "train_seconds_median": 189.93,
+      "train_seconds_min": 111.63,
+      "train_seconds_max": 282.23,
+      "predict_ms_per_step_median": 0.1856,
+      "predict_ms_per_step_min": 0.1438,
+      "predict_ms_per_step_max": 0.4309
+    },
+    "tcn": {
+      "measurements": 9,
+      "train_seconds_median": 222.08,
+      "train_seconds_min": 128.81,
+      "train_seconds_max": 496.57,
+      "predict_ms_per_step_median": 0.1445,
+      "predict_ms_per_step_min": 0.1234,
+      "predict_ms_per_step_max": 0.3889
+    }
+  }
+}

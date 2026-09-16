@@ -1,0 +1,482 @@
+{
+  "failure_window": {
+    "square": 5161,
+    "start": "2013-12-21 00:00",
+    "end": "2013-12-22 23:50",
+    "largest_arima_miss": "2013-12-21T13:20:00+01:00"
+  },
+  "5161": {
+    "mae_by_day": {
+      "naive": {
+        "Mon 16": 854.88,
+        "Tue 17": 316.08,
+        "Wed 18": 202.63,
+        "Thu 19": 201.28,
+        "Fri 20": 132.24,
+        "Sat 21": 502.95,
+        "Sun 22": 160.1
+      },
+      "arima": {
+        "Mon 16": 64.64,
+        "Tue 17": 80.34,
+        "Wed 18": 78.66,
+        "Thu 19": 68.59,
+        "Fri 20": 68.58,
+        "Sat 21": 105.77,
+        "Sun 22": 119.94
+      },
+      "lstm": {
+        "Mon 16": 83.18,
+        "Tue 17": 99.85,
+        "Wed 18": 106.04,
+        "Thu 19": 70.77,
+        "Fri 20": 76.48,
+        "Sat 21": 100.06,
+        "Sun 22": 113.34
+      },
+      "tcn": {
+        "Mon 16": 80.54,
+        "Tue 17": 90.45,
+        "Wed 18": 80.12,
+        "Thu 19": 76.85,
+        "Fri 20": 78.63,
+        "Sat 21": 98.0,
+        "Sun 22": 104.8
+      }
+    },
+    "weekend_to_weekday_mae": {
+      "naive": 0.9710150692527862,
+      "arima": 1.5639021664994934,
+      "lstm": 1.2227118646606157,
+      "tcn": 1.2470036894183123
+    },
+    "reaction": {
+      "arima": {
+        "under_reaction_share_all": 0.8033763654419066,
+        "under_reaction_share_largest": 0.9607843137254902,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.6933669269076478
+      },
+      "lstm": {
+        "under_reaction_share_all": 0.7606752730883813,
+        "under_reaction_share_largest": 0.9803921568627451,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.6424373977512786
+      },
+      "tcn": {
+        "under_reaction_share_all": 0.7815292949354519,
+        "under_reaction_share_largest": 1.0,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.723502625007867
+      }
+    },
+    "largest_arima_misses": [
+      {
+        "time": "Sat 21 13:20",
+        "actual": 3381.3,
+        "previous_actual": 3720.0,
+        "arima": 4104.2,
+        "lstm": 3872.8,
+        "tcn": 3852.9,
+        "abs_error": 722.9
+      },
+      {
+        "time": "Sun 22 13:30",
+        "actual": 3322.6,
+        "previous_actual": 3604.9,
+        "arima": 3967.7,
+        "lstm": 3811.4,
+        "tcn": 3790.1,
+        "abs_error": 645.1
+      },
+      {
+        "time": "Tue 17 16:00",
+        "actual": 3877.0,
+        "previous_actual": 3358.1,
+        "arima": 3284.3,
+        "lstm": 3312.4,
+        "tcn": 3287.5,
+        "abs_error": 592.6
+      },
+      {
+        "time": "Sat 21 18:30",
+        "actual": 3328.4,
+        "previous_actual": 3759.3,
+        "arima": 3898.7,
+        "lstm": 3796.3,
+        "tcn": 3850.9,
+        "abs_error": 570.3
+      },
+      {
+        "time": "Tue 17 15:30",
+        "actual": 3517.7,
+        "previous_actual": 3100.9,
+        "arima": 3015.0,
+        "lstm": 3047.1,
+        "tcn": 3075.0,
+        "abs_error": 502.6
+      },
+      {
+        "time": "Sun 22 18:30",
+        "actual": 3426.2,
+        "previous_actual": 3792.1,
+        "arima": 3917.5,
+        "lstm": 3874.0,
+        "tcn": 3876.0,
+        "abs_error": 491.3
+      },
+      {
+        "time": "Sun 22 19:20",
+        "actual": 2133.4,
+        "previous_actual": 2439.5,
+        "arima": 2613.8,
+        "lstm": 2581.6,
+        "tcn": 2554.3,
+        "abs_error": 480.4
+      },
+      {
+        "time": "Sat 21 18:10",
+        "actual": 3847.9,
+        "previous_actual": 4229.7,
+        "arima": 4314.3,
+        "lstm": 4232.7,
+        "tcn": 4238.0,
+        "abs_error": 466.5
+      },
+      {
+        "time": "Sun 22 18:00",
+        "actual": 4076.4,
+        "previous_actual": 4508.7,
+        "arima": 4542.4,
+        "lstm": 4566.5,
+        "tcn": 4540.9,
+        "abs_error": 466.0
+      },
+      {
+        "time": "Sun 22 19:10",
+        "actual": 2439.5,
+        "previous_actual": 2755.7,
+        "arima": 2903.4,
+        "lstm": 2854.7,
+        "tcn": 2826.0,
+        "abs_error": 464.0
+      }
+    ]
+  },
+  "5059": {
+    "mae_by_day": {
+      "naive": {
+        "Mon 16": 239.94,
+        "Tue 17": 119.39,
+        "Wed 18": 147.9,
+        "Thu 19": 173.88,
+        "Fri 20": 99.49,
+        "Sat 21": 216.32,
+        "Sun 22": 205.22
+      },
+      "arima": {
+        "Mon 16": 68.43,
+        "Tue 17": 80.39,
+        "Wed 18": 53.43,
+        "Thu 19": 55.24,
+        "Fri 20": 74.75,
+        "Sat 21": 65.52,
+        "Sun 22": 68.15
+      },
+      "lstm": {
+        "Mon 16": 66.14,
+        "Tue 17": 83.08,
+        "Wed 18": 64.57,
+        "Thu 19": 57.93,
+        "Fri 20": 71.66,
+        "Sat 21": 63.63,
+        "Sun 22": 65.62
+      },
+      "tcn": {
+        "Mon 16": 65.38,
+        "Tue 17": 83.27,
+        "Wed 18": 68.85,
+        "Thu 19": 62.86,
+        "Fri 20": 75.09,
+        "Sat 21": 66.33,
+        "Sun 22": 68.55
+      }
+    },
+    "weekend_to_weekday_mae": {
+      "naive": 1.3500324746643233,
+      "arima": 1.0058112060944728,
+      "lstm": 0.9409802143807601,
+      "tcn": 0.9486229830557735
+    },
+    "reaction": {
+      "arima": {
+        "under_reaction_share_all": 0.7904667328699106,
+        "under_reaction_share_largest": 1.0,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.7123682032168679
+      },
+      "lstm": {
+        "under_reaction_share_all": 0.733862959285005,
+        "under_reaction_share_largest": 0.9411764705882353,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.5810243918890343
+      },
+      "tcn": {
+        "under_reaction_share_all": 0.7745779543197616,
+        "under_reaction_share_largest": 1.0,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.6658822256528175
+      }
+    },
+    "largest_arima_misses": [
+      {
+        "time": "Fri 20 23:40",
+        "actual": 1177.4,
+        "previous_actual": 738.7,
+        "arima": 567.5,
+        "lstm": 530.4,
+        "tcn": 589.0,
+        "abs_error": 609.9
+      },
+      {
+        "time": "Tue 17 16:10",
+        "actual": 3124.1,
+        "previous_actual": 2747.3,
+        "arima": 2702.7,
+        "lstm": 2690.7,
+        "tcn": 2717.8,
+        "abs_error": 421.4
+      },
+      {
+        "time": "Tue 17 15:30",
+        "actual": 2892.7,
+        "previous_actual": 2477.3,
+        "arima": 2512.2,
+        "lstm": 2583.7,
+        "tcn": 2647.0,
+        "abs_error": 380.5
+      },
+      {
+        "time": "Sun 22 18:00",
+        "actual": 1884.5,
+        "previous_actual": 2312.9,
+        "arima": 2238.5,
+        "lstm": 2207.3,
+        "tcn": 2335.2,
+        "abs_error": 354.1
+      },
+      {
+        "time": "Sat 21 18:00",
+        "actual": 2288.8,
+        "previous_actual": 2626.0,
+        "arima": 2638.7,
+        "lstm": 2543.0,
+        "tcn": 2577.0,
+        "abs_error": 349.9
+      },
+      {
+        "time": "Sun 22 17:40",
+        "actual": 2008.2,
+        "previous_actual": 2325.2,
+        "arima": 2345.2,
+        "lstm": 2338.9,
+        "tcn": 2366.7,
+        "abs_error": 337.0
+      },
+      {
+        "time": "Wed 18 16:30",
+        "actual": 2889.6,
+        "previous_actual": 2681.9,
+        "arima": 2557.5,
+        "lstm": 2561.6,
+        "tcn": 2630.3,
+        "abs_error": 332.1
+      },
+      {
+        "time": "Sun 22 11:30",
+        "actual": 1449.8,
+        "previous_actual": 1127.9,
+        "arima": 1124.8,
+        "lstm": 1309.1,
+        "tcn": 1351.7,
+        "abs_error": 325.1
+      },
+      {
+        "time": "Fri 20 14:40",
+        "actual": 2900.4,
+        "previous_actual": 2665.7,
+        "arima": 2584.7,
+        "lstm": 2645.7,
+        "tcn": 2739.8,
+        "abs_error": 315.6
+      },
+      {
+        "time": "Sun 22 16:20",
+        "actual": 2651.9,
+        "previous_actual": 2329.1,
+        "arima": 2338.3,
+        "lstm": 2373.6,
+        "tcn": 2451.5,
+        "abs_error": 313.6
+      }
+    ]
+  },
+  "5259": {
+    "mae_by_day": {
+      "naive": {
+        "Mon 16": 1381.7,
+        "Tue 17": 211.08,
+        "Wed 18": 161.06,
+        "Thu 19": 150.92,
+        "Fri 20": 130.62,
+        "Sat 21": 1088.71,
+        "Sun 22": 168.15
+      },
+      "arima": {
+        "Mon 16": 68.52,
+        "Tue 17": 76.94,
+        "Wed 18": 70.04,
+        "Thu 19": 75.15,
+        "Fri 20": 70.54,
+        "Sat 21": 39.09,
+        "Sun 22": 40.12
+      },
+      "lstm": {
+        "Mon 16": 67.61,
+        "Tue 17": 76.12,
+        "Wed 18": 70.87,
+        "Thu 19": 87.81,
+        "Fri 20": 75.95,
+        "Sat 21": 41.15,
+        "Sun 22": 49.55
+      },
+      "tcn": {
+        "Mon 16": 61.47,
+        "Tue 17": 70.75,
+        "Wed 18": 68.53,
+        "Thu 19": 79.15,
+        "Fri 20": 74.98,
+        "Sat 21": 39.31,
+        "Sun 22": 42.6
+      }
+    },
+    "weekend_to_weekday_mae": {
+      "naive": 1.5437657227767918,
+      "arima": 0.5482728144535108,
+      "lstm": 0.5993092753355043,
+      "tcn": 0.5770413940890237
+    },
+    "reaction": {
+      "arima": {
+        "under_reaction_share_all": 0.817279046673287,
+        "under_reaction_share_largest": 0.9607843137254902,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.651474759262403
+      },
+      "lstm": {
+        "under_reaction_share_all": 0.817279046673287,
+        "under_reaction_share_largest": 0.9803921568627451,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.6494844337010585
+      },
+      "tcn": {
+        "under_reaction_share_all": 0.8272095332671301,
+        "under_reaction_share_largest": 1.0,
+        "largest_share": 0.05,
+        "corr_abs_error_abs_move": 0.6786811907799204
+      }
+    },
+    "largest_arima_misses": [
+      {
+        "time": "Mon 16 13:10",
+        "actual": 3249.5,
+        "previous_actual": 3530.9,
+        "arima": 3689.8,
+        "lstm": 3554.5,
+        "tcn": 3548.3,
+        "abs_error": 440.2
+      },
+      {
+        "time": "Thu 19 13:20",
+        "actual": 2906.9,
+        "previous_actual": 3417.0,
+        "arima": 3311.6,
+        "lstm": 3430.0,
+        "tcn": 3436.7,
+        "abs_error": 404.8
+      },
+      {
+        "time": "Thu 19 17:00",
+        "actual": 3048.2,
+        "previous_actual": 2749.0,
+        "arima": 2657.8,
+        "lstm": 2702.8,
+        "tcn": 2680.1,
+        "abs_error": 390.3
+      },
+      {
+        "time": "Tue 17 15:30",
+        "actual": 3504.4,
+        "previous_actual": 3067.7,
+        "arima": 3137.1,
+        "lstm": 3149.8,
+        "tcn": 3140.6,
+        "abs_error": 367.3
+      },
+      {
+        "time": "Fri 20 18:20",
+        "actual": 1719.5,
+        "previous_actual": 2082.3,
+        "arima": 2060.3,
+        "lstm": 2038.6,
+        "tcn": 2112.8,
+        "abs_error": 340.8
+      },
+      {
+        "time": "Wed 18 12:00",
+        "actual": 2981.0,
+        "previous_actual": 3299.8,
+        "arima": 3315.9,
+        "lstm": 3342.4,
+        "tcn": 3311.9,
+        "abs_error": 334.9
+      },
+      {
+        "time": "Thu 19 12:50",
+        "actual": 3090.9,
+        "previous_actual": 3468.6,
+        "arima": 3424.3,
+        "lstm": 3404.5,
+        "tcn": 3462.5,
+        "abs_error": 333.4
+      },
+      {
+        "time": "Mon 16 09:20",
+        "actual": 2043.4,
+        "previous_actual": 2183.6,
+        "arima": 2372.3,
+        "lstm": 2356.4,
+        "tcn": 2251.7,
+        "abs_error": 328.9
+      },
+      {
+        "time": "Mon 16 12:00",
+        "actual": 2854.7,
+        "previous_actual": 3118.6,
+        "arima": 3173.3,
+        "lstm": 3163.0,
+        "tcn": 3146.2,
+        "abs_error": 318.6
+      },
+      {
+        "time": "Tue 17 11:00",
+        "actual": 2957.5,
+        "previous_actual": 3178.6,
+        "arima": 3275.0,
+        "lstm": 3152.5,
+        "tcn": 3072.0,
+        "abs_error": 317.5
+      }
+    ]
+  }
+}

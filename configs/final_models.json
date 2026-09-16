@@ -1,0 +1,25 @@
+{
+  "arima": {
+    "p": 2,
+    "d": 1,
+    "q": 1,
+    "daily_harmonics": 16,
+    "weekly_harmonics": 8
+  },
+  "lstm": {
+    "lookback": 144,
+    "batch_size": 128,
+    "learning_rate": 0.0005,
+    "max_epochs": 80,
+    "patience": 10,
+    "model": {"hidden_size": 64, "num_layers": 1}
+  },
+  "tcn": {
+    "lookback": 144,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "max_epochs": 80,
+    "patience": 6,
+    "model": {"channels": 16, "levels": 6, "kernel_size": 3, "dropout": 0.1}
+  }
+}
