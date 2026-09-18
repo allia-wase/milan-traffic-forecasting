@@ -9,7 +9,7 @@ recorded every ten minutes from 1 November 2013 to 1 January 2014.
 
 | Deliverable | Where |
 |---|---|
-| Report | `reports/report/report.pdf`, built from `report.md` with `python scripts/09_build_report.py` |
+| Report | PDF submitted separately |
 | Video | link added on submission |
 | Dataset | [Harvard Dataverse: Milan telecommunications activity](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/EGZHFV) |
 
@@ -38,9 +38,6 @@ milan-traffic-forecasting/
 │   └── final_models.json        settings picked during tuning
 ├── notebooks/
 │   └── milan-forecasting.ipynb  walkthrough of the results (no training needed)
-├── reports/
-│   ├── report/                  report.md, style.css and the built report.pdf
-│   └── video_plan.md            outline for the video
 ├── scripts/                     the pipeline, run in order
 │   ├── 01_build_dataset.py
 │   ├── 02_memory_benchmark.py
@@ -50,8 +47,7 @@ milan-traffic-forecasting/
 │   ├── 05_tuning_experiment.py
 │   ├── 06_evaluate_models.py
 │   ├── 07_failure_analysis.py
-│   ├── 08_significance_tests.py
-│   └── 09_build_report.py
+│   └── 08_significance_tests.py
 ├── src/milan_forecasting/       the package the scripts import
 │   ├── config.py                paths, dataset constants, split dates
 │   ├── plotting.py              shared plot style
@@ -125,7 +121,6 @@ are what each step took on my laptop.
 | 6 | `python scripts/06_evaluate_models.py` (add `--models arima` to re-run one model) | 70 min |
 | 7 | `python scripts/07_failure_analysis.py` | seconds |
 | 8 | `python scripts/08_significance_tests.py` | seconds |
-| 9 | `python scripts/09_build_report.py` | seconds |
 
 Notes on the steps:
 
@@ -133,8 +128,6 @@ Notes on the steps:
   in `data/processed/`.
 - **Step 5:** only ever looks at the validation week.
 - **Steps 7 and 8:** reuse the predictions saved by step 6.
-- **Step 9:** needs `pip install -e ".[report]"` and Chrome or Edge, which prints the HTML to PDF,
-  so LaTeX isn't needed.
 
 ## How I did it
 
@@ -299,8 +292,8 @@ run took 300 s once and 493 s the next time, which is why I report medians over 
 
 ## Use of AI
 
-I used an AI coding assistant while building this project. The report's AI declaration explains
-where and how.
+I used an AI coding assistant while building this project. The AI declaration in the submitted
+report explains where and how.
 
 ## References
 
@@ -319,7 +312,5 @@ where and how.
 7. F. X. Diebold and R. S. Mariano, "Comparing predictive accuracy," *J. Business & Economic
    Statistics*, vol. 13, no. 3, pp. 253–263, 1995.
 
-## License
-
-The code is under the MIT License (see `LICENSE`). The Telecom Italia data isn't included here and
-stays under the terms of its Dataverse record.
+The Telecom Italia data isn't included in this repository and stays under the terms of its
+Dataverse record.

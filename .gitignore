@@ -17,5 +17,3 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Built report intermediate
-/reports/report/report.html
