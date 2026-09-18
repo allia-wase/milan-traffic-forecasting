@@ -22,6 +22,8 @@ and how does their performance change between areas whose traffic behaves differ
 
 - ARIMA with Fourier terms for the daily and weekly cycles had the lowest average error in all
   three squares I tested. It also trained about ten times faster than the LSTM and the TCN.
+- Lag-1 persistence is a much stronger baseline for this one-step task than same-time-yesterday:
+  it has MAE 92.80 on square 5161, close to the LSTM's 92.53 mean.
 - Diebold-Mariano tests say ARIMA's lead is significant in five of the six comparisons with the
   networks. The one exception is square 5259, where ARIMA and the TCN come out level.
 - The TCN was the least stable model. Changing only the random seed moved its error a lot.
@@ -218,6 +220,7 @@ Final settings (from `configs/final_models.json`):
 | Model | Settings |
 |---|---|
 | Seasonal naive | value at the same time on the previous day |
+| Persistence | previous observation, ten minutes earlier |
 | ARIMA-Fourier | ARIMA(2,1,0) errors around 16 daily and 8 weekly Fourier pairs |
 | LSTM | one layer of 64 units, one day of input |
 | TCN | six dilated convolution levels, 16 channels, one day of input |
@@ -231,14 +234,17 @@ seeds and report the mean ± standard deviation. The full tables are in
 | Square | Model | MAE | MAPE (%) | RMSE |
 |---|---|---|---|---|
 | 5161 | Seasonal naive | 338.59 | 25.94 | 619.04 |
+| | Persistence (lag 1) | 92.80 | 9.19 | 134.88 |
 | | ARIMA-Fourier | 76.86 | 7.33 | 117.12 |
 | | LSTM | 92.53 ± 1.94 | 8.48 ± 0.04 | 144.31 ± 3.12 |
 | | TCN | 87.74 ± 0.69 | 8.60 ± 0.63 | 132.10 ± 3.52 |
 | 5059 | Seasonal naive | 171.74 | 18.02 | 245.87 |
+| | Persistence (lag 1) | 81.52 | 7.96 | 114.38 |
 | | ARIMA-Fourier | 63.86 | 6.11 | 93.33 |
 | | LSTM | 69.58 ± 2.41 | 6.72 ± 0.24 | 102.17 ± 3.76 |
 | | TCN | 73.31 ± 4.75 | 7.50 ± 0.99 | 104.32 ± 4.68 |
 | 5259 | Seasonal naive | 470.32 | 71.62 | 861.62 |
+| | Persistence (lag 1) | 75.97 | 8.11 | 109.58 |
 | | ARIMA-Fourier | 63.20 | 6.83 | 92.70 |
 | | LSTM | 66.63 ± 0.33 | 7.24 ± 0.11 | 96.00 ± 1.44 |
 | | TCN | 68.86 ± 9.80 | 7.24 ± 0.39 | 103.54 ± 20.31 |
@@ -256,6 +262,9 @@ them.
 
 All three models predict in well under a millisecond, so in practice what matters is training
 time.
+
+Persistence has no training step, and its forecast is a single previous-value lookup, so its
+compute cost is negligible compared with fitting any of the trained models.
 
 **Significance.** To check whether the gaps in the error table are more than chance, I ran
 Diebold-Mariano tests (`results/4_model_evaluation/significance.md`). They compare ARIMA with the
@@ -285,15 +294,11 @@ The plots are in `results/4_model_evaluation/failure_analysis/`.
 ## Reproducibility
 
 The networks use fixed seeds, so rerunning with the same seed and data gives the same numbers.
-ARIMA and the baseline have no randomness.
+ARIMA and both baselines have no randomness.
 
 Timings are the exception, because a laptop isn't a stable benchmark machine. One identical TCN
 run took 300 s once and 493 s the next time, which is why I report medians over repeated runs.
 
-## Use of AI
-
-I used an AI coding assistant while building this project. The AI declaration in the submitted
-report explains where and how.
 
 ## References
 

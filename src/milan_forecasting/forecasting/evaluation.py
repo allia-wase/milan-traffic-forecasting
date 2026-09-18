@@ -4,7 +4,7 @@ import itertools
 import pandas as pd
 
 from milan_forecasting.forecasting.figures import MODEL_LABELS
-from milan_forecasting.forecasting.pipeline import MODELS
+from milan_forecasting.forecasting.pipeline import BASELINES, MODELS
 
 NEURAL = ("lstm", "tcn")
 METRIC_ORDER = ("mae", "mape", "rmse", "mase")
@@ -13,7 +13,8 @@ TIMING_METHOD = (
     "Wall-clock time from time.perf_counter. Training time covers fitting on the training split "
     "(for the networks: all epochs including early stopping on the validation split). Prediction "
     "time covers producing all 1,008 one-step-ahead forecasts of the test week. Networks: one "
-    "measurement per seed per square; ARIMA and baseline: repeated runs per square. Reported as the "
+    "measurement per seed per square; ARIMA: repeated runs per square; the two naive baselines: one "
+    "run per square, since there is nothing to fit. Reported as the "
     "median with min-max over all measurements for the model across the three squares. CPU only."
 )
 
@@ -28,7 +29,7 @@ def repeat_params(model: str, params: dict, seeds: list[int], timing_repeats: in
     """One run per seed for the networks; deterministic models are repeated only to time them."""
     if model in NEURAL:
         return [{**params, "seed": seed} for seed in seeds]
-    return [params] * (1 if model == "naive" else timing_repeats)
+    return [params] * (1 if model in BASELINES else timing_repeats)
 
 
 def format_cell(values: pd.Series, digits: int) -> str:
@@ -54,7 +55,7 @@ def results_tables(runs: pd.DataFrame) -> str:
             cells = [format_cell(rows[m], 3 if m == "mase" else 2) for m in METRIC_ORDER]
             lines.append(f"| {MODEL_LABELS[model]} | " + " | ".join(cells) + " |")
         sections.append("\n".join(lines))
-    note = "Networks: mean ± standard deviation over seeds. ARIMA and the baseline are deterministic."
+    note = "Networks: mean ± standard deviation over seeds. ARIMA and the baselines are deterministic."
     return "\n\n".join(sections) + f"\n\n{note}\n"
 
 

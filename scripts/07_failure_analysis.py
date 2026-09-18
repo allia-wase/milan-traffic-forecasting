@@ -41,8 +41,8 @@ def main() -> None:
     naive_peak = max(frame["naive"].max() for frame in daily.values())
     plot_error_by_day(
         daily,
-        f"Networks: seed 42. Seasonal naive omitted for scale (its daily error reaches {naive_peak:,.0f}; "
-        "see summary.json).",
+        f"Networks: seed 42. Baselines omitted from the bars: seasonal naive for scale (its daily error "
+        f"reaches {naive_peak:,.0f}), persistence to keep three bars per day. Both are in summary.json.",
         config.FAILURE_ANALYSIS_DIR / "error_by_day.png",
     )
 

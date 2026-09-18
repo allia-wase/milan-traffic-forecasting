@@ -8,7 +8,7 @@ import pandas as pd
 
 from milan_forecasting import config
 
-PREDICTED_MODELS = ("naive", "arima", "lstm", "tcn")
+PREDICTED_MODELS = ("naive", "persistence", "arima", "lstm", "tcn")
 WEEKEND_PREFIXES = ("Sat", "Sun")
 
 

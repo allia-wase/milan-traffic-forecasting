@@ -1,4 +1,4 @@
-"""Seasonal-naive baseline and ARIMA with Fourier seasonal regressors."""
+"""Naive baselines (lag 1 and lag 144) and ARIMA with Fourier seasonal regressors."""
 from __future__ import annotations
 
 import warnings
@@ -16,7 +16,15 @@ WEEKLY = 7 * config.INTERVALS_PER_DAY
 
 def seasonal_naive(values: np.ndarray, targets: np.ndarray, season: int = DAILY) -> np.ndarray:
     """Predict each interval with the value observed one season earlier."""
-    return np.asarray(values)[np.asarray(targets) - season]
+    targets = np.asarray(targets)
+    if targets.min() < season:
+        raise ValueError(f"target {targets.min()} has no observation {season} steps earlier")
+    return np.asarray(values)[targets - season]
+
+
+def persistence(values: np.ndarray, targets: np.ndarray) -> np.ndarray:
+    """Predict each interval with the previous observation: x(t + 1) = x(t)."""
+    return seasonal_naive(values, targets, season=1)
 
 
 def fourier_terms(n_obs: int, period: int, harmonics: int) -> np.ndarray:

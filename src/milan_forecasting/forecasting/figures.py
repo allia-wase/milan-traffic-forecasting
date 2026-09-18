@@ -8,8 +8,10 @@ import pandas as pd
 
 from milan_forecasting.plotting import INK_MUTED, INK_PRIMARY, INK_SECONDARY, SERIES, SHADE, SURFACE, save
 
-MODEL_LABELS = {"naive": "Seasonal naive", "arima": "ARIMA-Fourier", "lstm": "LSTM", "tcn": "TCN"}
-MODEL_COLORS = {"naive": INK_MUTED, "arima": SERIES[0], "lstm": SERIES[1], "tcn": SERIES[2]}
+MODEL_LABELS = {"naive": "Seasonal naive", "persistence": "Persistence (lag 1)",
+                "arima": "ARIMA-Fourier", "lstm": "LSTM", "tcn": "TCN"}
+MODEL_COLORS = {"naive": INK_MUTED, "persistence": SERIES[3], "arima": SERIES[0],
+                "lstm": SERIES[1], "tcn": SERIES[2]}
 TRAINED_MODELS = ("arima", "lstm", "tcn")
 LABEL_BOX = {"boxstyle": "round,pad=0.3", "facecolor": SURFACE, "edgecolor": "none", "alpha": 0.92}
 

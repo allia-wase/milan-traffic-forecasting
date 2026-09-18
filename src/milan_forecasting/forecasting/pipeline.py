@@ -19,9 +19,15 @@ from milan_forecasting.forecasting.preprocessing import (
 )
 from milan_forecasting.forecasting.metrics import evaluate, seasonal_naive_scale
 from milan_forecasting.forecasting.models.neural import TrainConfig, build_model, predict, train_model
-from milan_forecasting.forecasting.models.statistical import ArimaFourierConfig, ArimaFourierForecaster, seasonal_naive
+from milan_forecasting.forecasting.models.statistical import (
+    ArimaFourierConfig,
+    ArimaFourierForecaster,
+    persistence,
+    seasonal_naive,
+)
 
-MODELS = ("naive", "arima", "lstm", "tcn")
+BASELINES = ("naive", "persistence")
+MODELS = (*BASELINES, "arima", "lstm", "tcn")
 
 
 @dataclass
@@ -50,10 +56,11 @@ def run(model_name: str, series: pd.Series, params: dict, split_name: str) -> Ru
     scaled = scaler.transform(values)
     details: dict = {}
 
-    if model_name == "naive":
+    if model_name in BASELINES:
+        baseline = seasonal_naive if model_name == "naive" else persistence
         train_seconds = 0.0
         started = time.perf_counter()
-        predicted = seasonal_naive(values, targets)
+        predicted = baseline(values, targets)
         predict_seconds = time.perf_counter() - started
 
     elif model_name == "arima":

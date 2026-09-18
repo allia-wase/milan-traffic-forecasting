@@ -22,6 +22,7 @@ def test_repeat_params_uses_seeds_only_for_networks():
     ]
     assert repeat_params("arima", {"p": 2}, [1, 2], 3) == [{"p": 2}] * 3
     assert repeat_params("naive", {}, [1, 2], 3) == [{}]
+    assert repeat_params("persistence", {}, [1, 2], 3) == [{}]
 
 
 def _runs() -> pd.DataFrame:

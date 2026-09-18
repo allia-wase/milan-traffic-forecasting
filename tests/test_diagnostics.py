@@ -16,7 +16,8 @@ from milan_forecasting.forecasting.diagnostics import (
 
 def _frame(actual, **predictions):
     index = pd.date_range("2013-12-16", periods=len(actual), freq="10min", tz=config.TIMEZONE)
-    columns = {"actual": actual, "naive": actual, "arima": actual, "lstm": actual, "tcn": actual}
+    columns = {"actual": actual, "naive": actual, "persistence": actual,
+               "arima": actual, "lstm": actual, "tcn": actual}
     columns.update(predictions)
     return pd.DataFrame(columns, index=index, dtype=float)
 

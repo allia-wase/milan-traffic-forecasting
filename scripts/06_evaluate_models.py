@@ -1,7 +1,7 @@
 """Final evaluation on the untouched test week (16-22 Dec) for the three busiest squares.
 
 Model settings come from configs/final_models.json, chosen on the validation week by the tuning
-experiments. Neural networks are trained once per seed; ARIMA and the baseline are deterministic,
+experiments. Neural networks are trained once per seed; ARIMA and the baselines are deterministic,
 so their repeats only serve to measure run time.
 
 --models re-runs only the listed models and keeps the saved results of the others, e.g. after
@@ -27,7 +27,7 @@ from milan_forecasting.forecasting.evaluation import (
     timing_summary,
 )
 from milan_forecasting.forecasting.figures import plot_forecast
-from milan_forecasting.forecasting.pipeline import MODELS, run
+from milan_forecasting.forecasting.pipeline import BASELINES, MODELS, run
 from milan_forecasting.plotting import apply_style
 from milan_forecasting.system_info import system_info
 
@@ -75,7 +75,7 @@ def main() -> None:
                     predictions = pd.DataFrame({"actual": result.actual}, index=result.timestamps)
                     predictions.index.name = "timestamp"
                 predictions[model] = result.predicted
-                if model != "naive":
+                if model not in BASELINES:
                     note = f"  ·  seed {params['seed']}" if model in NEURAL else ""
                     plot_forecast(result.timestamps, result.actual, result.predicted, model, square,
                                   result.metrics, note, config.FORECASTS_DIR / f"square_{square}_{model}.png")
