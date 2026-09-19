@@ -1,7 +1,5 @@
 # Milan Mobile Internet Traffic Forecasting
 
-[![tests](https://github.com/allia-wase/milan-traffic-forecasting/actions/workflows/tests.yml/badge.svg)](https://github.com/allia-wase/milan-traffic-forecasting/actions/workflows/tests.yml)
-
 This project forecasts mobile Internet traffic in Milan ten minutes ahead using the Telecom
 Italia Big Data Challenge dataset. The dataset covers 10,000 squares at ten-minute intervals
 from 1 November 2013 to 1 January 2014.
@@ -27,9 +25,30 @@ and how does their performance change between areas whose traffic behaves differ
 	across. The geographic comparison is therefore within one central district, not across Milan.
 - The saved significance results use seed-42 networks and, after Holm-Bonferroni correction, show ARIMA significantly ahead in three of six comparisons under absolute loss.
 
+## Repository structure
+
+```
+scripts/        pipeline stages 01-08, run in order (see below)
+src/             package code (data loading, analysis, forecasting, plotting)
+configs/         final_models.json and other saved configuration
+notebooks/       report.ipynb - reads results/ and renders every figure and table
+results/         committed outputs from every stage, incl. results/4_model_evaluation/
+tests/           unit tests, run with `python -m pytest`
+```
+
+## Viewing the results without rerunning anything
+
+`notebooks/report.ipynb` reads the saved JSON/CSV/PNG outputs under `results/` and reproduces
+every figure and table in the report. It runs in a few seconds and does not retrain or
+reprocess anything; the one cell that touches the processed dataset matrix skips itself if that
+matrix has not been built locally. This is the fastest way to check the submitted results
+without rerunning `scripts/01`-`08`.
+
 ## Setup
 
-Use Python 3.14 on Windows, or a compatible Python version supported by the pinned dependencies:
+Use Python 3.14 on Windows, or a compatible Python version supported by the pinned dependencies
+(developed and timed against `torch==2.14.0+cpu` and `statsmodels==0.15.0`; see
+`pyproject.toml` for the full pinned set):
 
 ```bash
 python -m venv .venv
@@ -44,7 +63,9 @@ to the data-building scripts with `--raw-dir` or set `MILAN_RAW_DIR`.
 The split is chronological: training through 8 December, validation from 9 to 15 December, and test from 16 to 22 December.
 EDA describes the full 62-day record, while model selection uses the validation week.
 ARIMA was evaluated on the test week twice because the final order changed from `(2,1,1)` to `(2,1,0)`; both runs are archived.
-Neural models use three fixed seeds; ARIMA and both baselines are deterministic.
+Neural models are trained with three fixed seeds — `42`, `7`, `123` (the default for
+`scripts/06_evaluate_models.py --seeds`); ARIMA and both baselines are deterministic, so their
+repeated runs only measure timing, not variability.
 
 Run the scripts in order from the repository root:
 
@@ -68,6 +89,13 @@ python scripts/03b_locate_squares.py --grid-file <geojson>
 Use `python scripts/06_evaluate_models.py --models <model>` for a partial evaluation. Saved
 outputs are under `results/`, especially `results/4_model_evaluation/` for metrics, forecasts,
 significance tests, timing, and failure analysis.
+
+**Runtime.** On the two-core Intel i5-7200U laptop used for the reported timings,
+`scripts/06_evaluate_models.py` takes roughly an hour end to end across all three squares.
+Training is dominated by the LSTM and TCN across three seeds each (about 55 minutes combined);
+ARIMA's three deterministic timing repeats and both baselines finish in under three minutes.
+Earlier stages (`01`-`04`) are much faster: the dataset build itself takes under two minutes
+once the raw files are available locally.
 
 ## Models and evaluation
 
