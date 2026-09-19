@@ -1,6 +1,7 @@
 """Statistics for the exploratory analysis of the Internet-activity matrix."""
 from __future__ import annotations
 
+import math
 import warnings
 
 import numpy as np
@@ -13,6 +14,7 @@ from statsmodels.tsa.stattools import acf, adfuller, kpss, pacf
 from milan_forecasting import config
 
 GRID_SIDE = 100
+CELL_SIDE_KM = 0.235
 DAILY_PERIOD = config.INTERVALS_PER_DAY
 WEEKLY_PERIOD = 7 * config.INTERVALS_PER_DAY
 ROBUST_SIGMA = 1.4826  # scales the median absolute deviation to a standard deviation for normal data
@@ -27,6 +29,13 @@ def area_totals(matrix: np.ndarray) -> pd.Series:
 def square_to_grid(square_id: int) -> tuple[int, int]:
     """(row, column) of a square, assuming IDs run row by row from the grid's first corner."""
     return divmod(square_id - 1, GRID_SIDE)
+
+
+def grid_separation_km(square_a: int, square_b: int) -> float:
+    """Return nominal straight-line distance between two grid-cell centres in kilometres."""
+    row_a, column_a = square_to_grid(square_a)
+    row_b, column_b = square_to_grid(square_b)
+    return float(math.hypot(row_a - row_b, column_a - column_b) * CELL_SIDE_KM)
 
 
 def totals_grid(totals: pd.Series) -> np.ndarray:

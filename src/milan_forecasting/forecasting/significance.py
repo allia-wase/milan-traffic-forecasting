@@ -3,10 +3,14 @@
 Errors 10 minutes apart are correlated, so the variance of the loss difference
 d_t = L(e_a,t) - L(e_b,t) uses a Newey-West estimator instead of the plain sample variance.
 p-values come from t(n - 1), with the Harvey, Leybourne and Newbold (1997) small-sample fix.
+
+Every pair of models is tested, so the p-values also need a family-wise adjustment before any
+of them is read as evidence; `holm_adjusted` provides it.
 """
 from __future__ import annotations
 
 import math
+from collections.abc import Sequence
 
 import numpy as np
 from scipy import stats
@@ -48,3 +52,14 @@ def diebold_mariano(actual, forecast_a, forecast_b, loss: str = "absolute", max_
     p_value = 2 * stats.t.sf(abs(statistic), df=n - 1)
     return {"loss": loss, "n": n, "lag": lag, "mean_loss_difference": float(d.mean()),
             "statistic": float(statistic), "p_value": float(p_value)}
+
+
+def holm_adjusted(p_values: Sequence[float]) -> list[float]:
+    """Return Holm-Bonferroni adjusted p-values in the original input order."""
+    order = sorted(range(len(p_values)), key=lambda index: p_values[index])
+    adjusted = [0.0] * len(p_values)
+    running = 0.0
+    for rank, index in enumerate(order):
+        running = max(running, (len(p_values) - rank) * p_values[index])
+        adjusted[index] = min(running, 1.0)
+    return adjusted

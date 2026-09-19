@@ -1,8 +1,14 @@
 import math
 
 import numpy as np
+import pytest
 
-from milan_forecasting.forecasting.significance import diebold_mariano, long_run_variance, newey_west_lag
+from milan_forecasting.forecasting.significance import (
+    diebold_mariano,
+    holm_adjusted,
+    long_run_variance,
+    newey_west_lag,
+)
 
 
 def test_clearly_better_forecast_is_significant_and_negative():
@@ -44,3 +50,18 @@ def test_long_run_variance_grows_with_positive_autocorrelation():
 
 def test_newey_west_lag_for_a_test_week():
     assert newey_west_lag(1008) == 6
+
+
+def test_holm_adjusted_follows_the_step_down_rule():
+    assert holm_adjusted([0.01, 0.04, 0.03]) == pytest.approx([0.03, 0.06, 0.06])
+
+
+def test_holm_adjusted_is_monotone_and_capped_at_one():
+    assert holm_adjusted([0.2, 0.3, 0.4]) == pytest.approx([0.6, 0.6, 0.6])
+    assert holm_adjusted([0.5, 0.6]) == pytest.approx([1.0, 1.0])
+
+
+def test_holm_adjusted_never_lowers_a_p_value():
+    rng = np.random.default_rng(3)
+    raw = list(rng.uniform(0, 1, 20))
+    assert all(adjusted >= p for adjusted, p in zip(holm_adjusted(raw), raw))

@@ -6,6 +6,7 @@ from milan_forecasting import config
 from milan_forecasting.analysis.statistics import (
     daily_residual_anomalies,
     distribution_stats,
+    grid_separation_km,
     residual_anomalies,
     square_to_grid,
     temporal_profile_stats,
@@ -17,6 +18,15 @@ def test_square_to_grid_is_row_major():
     assert square_to_grid(100) == (0, 99)
     assert square_to_grid(101) == (1, 0)
     assert square_to_grid(10000) == (99, 99)
+
+
+def test_the_evaluated_squares_are_adjacent():
+    assert square_to_grid(5059) == (50, 58)
+    assert square_to_grid(5161) == (51, 60)
+    assert square_to_grid(5259) == (52, 58)
+    assert grid_separation_km(5059, 5259) == pytest.approx(0.470, abs=1e-3)
+    assert grid_separation_km(5059, 5161) == pytest.approx(0.525, abs=1e-3)
+    assert grid_separation_km(5161, 5259) == pytest.approx(0.525, abs=1e-3)
 
 
 @pytest.mark.filterwarnings("ignore:Precision loss occurred in moment calculation")

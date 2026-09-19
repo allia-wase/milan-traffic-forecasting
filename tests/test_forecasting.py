@@ -11,6 +11,7 @@ from milan_forecasting.forecasting.preprocessing import (
     split_targets,
 )
 from milan_forecasting.forecasting.metrics import evaluate, mape, seasonal_naive_scale
+from milan_forecasting.forecasting import pipeline
 from milan_forecasting.forecasting.models.neural import (
     LSTMForecaster,
     TCNForecaster,
@@ -139,3 +140,23 @@ def test_arima_fourier_fits_a_seasonal_series_without_lookahead():
     future_changed = scaled.copy()
     future_changed[311:] += 10.0
     assert forecaster.predict(future_changed, np.array([310]))[0] == pytest.approx(predictions[10])
+
+    past_changed = scaled.copy()
+    past_changed[309] += 10.0
+    assert forecaster.predict(past_changed, np.array([310]))[0] != pytest.approx(predictions[10])
+
+
+def test_pipeline_fits_scaler_on_training_slice_only(monkeypatch):
+    observed_lengths = []
+    original_fit = pipeline.LogStandardiser.fit
+
+    def recording_fit(values):
+        observed_lengths.append(len(values))
+        return original_fit(values)
+
+    monkeypatch.setattr(pipeline.LogStandardiser, "fit", staticmethod(recording_fit))
+    series = pd.Series(np.arange(62 * config.INTERVALS_PER_DAY, dtype=float), index=full_index())
+
+    pipeline.run("naive", series, {}, "test")
+
+    assert observed_lengths == [38 * config.INTERVALS_PER_DAY]

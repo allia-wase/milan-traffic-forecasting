@@ -23,7 +23,9 @@ and how does their performance change between areas whose traffic behaves differ
 - Lag-1 persistence is a stronger one-step baseline than same-time-yesterday. On square 5161 its MAE is `92.80`, close to the LSTM mean of `92.53`.
 - The TCN is the least stable model across random seeds. All models struggle with sharp ten-minute traffic changes.
 - The traffic has strong daily and weekly structure, which matches the ARIMA-Fourier design.
-- The saved significance results use seed-42 networks and currently report ARIMA as significant in five of six comparisons. Multiple-comparison correction is still planned.
+- The three evaluated squares are adjacent, forming one 3 x 3 grid block about 470 to 525 m
+	across. The geographic comparison is therefore within one central district, not across Milan.
+- The saved significance results use seed-42 networks and, after Holm-Bonferroni correction, show ARIMA significantly ahead in three of six comparisons under absolute loss.
 
 ## Setup
 
@@ -39,9 +41,10 @@ python -m pytest
 The raw dataset is about 20.8 GB. Keep it outside the repository and either pass its directory
 to the data-building scripts with `--raw-dir` or set `MILAN_RAW_DIR`.
 
-For saved outputs only, open `notebooks/milan-forecasting.ipynb`; it does not need the raw data.
-
-## Pipeline
+The split is chronological: training through 8 December, validation from 9 to 15 December, and test from 16 to 22 December.
+EDA describes the full 62-day record, while model selection uses the validation week.
+ARIMA was evaluated on the test week twice because the final order changed from `(2,1,1)` to `(2,1,0)`; both runs are archived.
+Neural models use three fixed seeds; ARIMA and both baselines are deterministic.
 
 Run the scripts in order from the repository root:
 
